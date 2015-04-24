@@ -1,0 +1,8 @@
+No projeto, quando precisarmos tratar os conectivos como string, trataremos da seguinte forma:
+E = "E"
+OU = "OU"
+Se Então = "SE_ENTAO"
+Se somente se = "SSE"
+Negação Lógica = "NEGACAO"
+
+Ao cria um nó com o conectivo NEGACAO, favor inserir a proposição no filho esquerdo.
