@@ -39,11 +39,11 @@ public class No<T>{
 	public void setFilhoEsquerdo(No esquerdo){
 		this.esquerdo = esquerdo;
 	}
-	public boolean eUmaFolha(){
+	public boolean ehUmaFolha(){
 		return isFolha;
 	}
 	public boolean avaliar(){
-		if(eUmaFolha()){
+		if(ehUmaFolha()){
 			Atomo el = (Atomo) elemento;
 			return el.getValor();
 		}
