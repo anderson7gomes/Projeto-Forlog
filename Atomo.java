@@ -10,7 +10,7 @@ public class Atomo{
 		valor = false;
 	}
 	public Atomo(){
-		this('');
+		this(' ');
 	}
 	public boolean getValor(){
 		return valor;
@@ -27,9 +27,10 @@ public class Atomo{
 	public boolean equals(Object e){
 		if(e == this)
 			return true;
-		if(!e instanceof Atomo)
+		if(!(e instanceof Atomo))
 			return false;
-		if(e.getRotulo() == this.getRotulo())
+		Atomo e1 = (Atomo) e;
+		if(e1.getRotulo() == this.getRotulo())
 			return true;
 		return false;
 	}

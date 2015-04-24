@@ -1,8 +1,10 @@
-public class No< T extends Atomo & Conectivo >{
+public class No<T>{
 	private T elemento;
 	private No esquerdo,direito;
 	private boolean isFolha;
 	public No(T elemento,No direito , No esquerdo){
+		if(!(elemento instanceof Atomo) || !(elemento instanceof Conectivo))
+			throw new IllegalArgumentException("É necessário que o elemento seja ou um Atomo ou Conectivo");
 		if((elemento instanceof Atomo) && (direito != null || esquerdo != null))
 			throw new IllegalArgumentException("Um nó folha não pode recber filhos");
 		this.elemento = elemento;
@@ -38,16 +40,18 @@ public class No< T extends Atomo & Conectivo >{
 		return isFolha;
 	}
 	public boolean avaliar(){
-		if(eUmaFolha)
-			return (Atomo) elemento.getValor();
+		if(eUmaFolha()){
+			Atomo el = (Atomo) elemento;
+			return el.getValor();
+		}
 		if(elemento instanceof ConectivoBinario){
 			ConectivoBinario conectivo = (ConectivoBinario) elemento;
-			return conectivo.aplicar(esquerdo.avaliar(),direito.avaliar);
+			return conectivo.aplicar(esquerdo.avaliar(),direito.avaliar());
 		}
 		if(elemento instanceof ConectivoUnario){
 			ConectivoUnario conectivo = (ConectivoUnario) elemento;
 			return conectivo.aplicar(esquerdo.avaliar());
 		}
-
+		return false;
 	}
 }

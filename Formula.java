@@ -19,7 +19,7 @@ public class Formula{
 	public boolean getValorProposicao(int indice){
 		if(indice > quantidadeAtomos())
 			throw new IllegalArgumentException("Posição não existente");
-		return atomos[indice];
+		return atomos[indice].getValor();
 	}
 	//TODO: setValorPosicao e etc
 }
