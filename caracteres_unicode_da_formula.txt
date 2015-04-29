@@ -1,0 +1,7 @@
+E = '\u2227'
+OU = '\u2228'
+SE_ENTAO = '\u2192' 
+SSE = '\u2194'
+NEGACAO = '\u223c'
+
+Intervalo de átomos válidos = 'a' a 'z' ou '\u0061' a '\u007a' 
