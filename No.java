@@ -2,8 +2,8 @@ public class No<T>{
 	private T elemento;
 	private No esquerdo,direito;
 	private boolean isFolha;
-	public No(T elemento,No direito , No esquerdo){
-		if(!(elemento instanceof Atomo) || !(elemento instanceof Conectivo))
+	public No(T elemento,No esquerdo , No direito){
+		if(!(elemento instanceof Atomo) && !(elemento instanceof Conectivo))
 			throw new IllegalArgumentException("É necessário que o elemento seja ou um Atomo ou Conectivo");
 		if((elemento instanceof Atomo) && (direito != null || esquerdo != null))
 			throw new IllegalArgumentException("Um nó folha não pode recber filhos");
@@ -15,6 +15,11 @@ public class No<T>{
 		else
 			isFolha = false;
 	}
+	
+	public No(T elemento, No esquerdo) {
+	    this(elemento, esquerdo, null);
+	} 
+	
 	public No(T elemento){
 		this(elemento,null,null);
 	}
@@ -39,11 +44,11 @@ public class No<T>{
 	public void setFilhoEsquerdo(No esquerdo){
 		this.esquerdo = esquerdo;
 	}
-	public boolean ehUmaFolha(){
+	public boolean isFolha(){
 		return isFolha;
 	}
 	public boolean avaliar(){
-		if(ehUmaFolha()){
+		if(isFolha()){
 			Atomo el = (Atomo) elemento;
 			return el.getValor();
 		}

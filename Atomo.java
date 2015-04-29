@@ -9,9 +9,6 @@ public class Atomo{
 		this.rotulo = rotulo;
 		valor = false;
 	}
-	public Atomo(){
-		this(' ');
-	}
 	public boolean getValor(){
 		return valor;
 	}
