@@ -34,7 +34,21 @@ public class Atomo{
 			return true;
 		return false;
 	}
+	
+	/* um átomo válido é definido como sendo um 
+	 * caractere minúsculo da tabela ASCII */
+	public static boolean isAtomo(char character) {
+	
+		if (character < '\u0061' || character > '\u007A') {
+			return false;	
+		}
+		
+		return true;
+	
+	} 
+	
 	public String toString(){
 		return "Rotulo: " + rotulo + "\tValor: " + valor;
 	}
+	
 }
