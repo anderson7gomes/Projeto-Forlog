@@ -17,7 +17,12 @@ public class Teste {
         No noConectivo3 = new No(c1, noConectivo1, noConectivo2);
         
         System.out.println(noConectivo3.avaliar());
-        
+        String formula ="(eVp)";
+        System.out.println(formula.substring(1,formula.length()-1));
+        String teste = "este é um teste de espaços em branco";
+        String teste2 = teste.replace(" ","");
+        System.out.println(teste + " " + teste.length());
+        System.out.println(teste2 + " " + teste2.length());
     }
 
 } // fim da classe Teste

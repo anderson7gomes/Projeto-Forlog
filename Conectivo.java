@@ -46,5 +46,17 @@ public abstract class Conectivo {
     	return false;
     
     }
-
+    public String toString(){
+        if(getTipo().equals("E"))
+         return String.valueOf('\u2227');
+        if(getTipo().equals("OU"))
+         return String.valueOf('\u2228');
+        if(getTipo().equals("SE_ENTAO"))
+         return String.valueOf('\u2192' );
+        if(getTipo().equals("SSE"))
+         return String.valueOf('\u2194');
+        if(getTipo().equals("NEGACAO"))
+         return String.valueOf('\u223c');
+        return " ";
+    }
 } // fim da classe Conectivo
