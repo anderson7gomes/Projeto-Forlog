@@ -13,7 +13,7 @@ public class Formula{
 		atomos = new Atomo[qtdAtomos];
 
 		atomos[0] = new Atomo('p',false);//teste
-		atomos[1] = new Atomo('q',false);//teste
+		atomos[1] = new Atomo('q',true);//teste
 
 		arvore = criarArvore(formula);
 		valor = avaliarArvore();
@@ -78,6 +78,7 @@ public class Formula{
 
 	private boolean isValida(){
 		//TODO:Verificação da validade da formula, criar e contar os átomos
+
 		return true;
 	}
 	public boolean getValor(){
@@ -97,7 +98,7 @@ public class Formula{
 		for(int i = 0 ; i < qtdAtomos ; i++)
 			if(atomos[i].getRotulo() == rotulo){
 				atomos[i].setValor(valor);
-				break;
+				return;
 			}
 		throw new IllegalArgumentException("Átomo não existente");	
 	}
@@ -108,11 +109,16 @@ public class Formula{
 	public static void main(String args[]){
 		String formula;
 		// formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
-		// formula = "("+'\u223c' +"p)";
+		formula = "("+'\u223c' +"p)";
 		// formula = "(p"+'\u2192'+"q)";
 		// formula = "(p"+'\u2192'+"p)";
-		formula = "(p "+'\u2194'+" q)";
+		// formula = "(p "+'\u2194'+" q)";
 		Formula f = new Formula(formula);
+		System.out.println("p="+f.getValorProposicao('p'));
+		System.out.println(formula + "\n" + f.getValor());
+		f.setValorPreposicao('p',true);
+		System.out.println("p="+f.getValorProposicao('p'));
+		f.avaliarArvore();
 		System.out.println(formula + "\n" + f.getValor());
 	}
 }
