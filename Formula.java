@@ -9,45 +9,56 @@ public class Formula{
 
 		//TODO: ler a string e formar a arvore
 		valor = false; // TODO:calcular
-		qtdAtomos = 0; // TODO:calcular
+		qtdAtomos = 2; // TODO:calcular
 		atomos = new Atomo[qtdAtomos];
+		atomos[0] = new Atomo('p',true);
+		atomos[1] = new Atomo('q',true);
+		arvore = criarArvore(formula);
 	}
 	private No criarArvore(String formulaComParensetes){
-		String formula = formulaComParensetes.substring(1,formulaComParensetes.length()-1);
-		if(formula.length() == 2)
-			if(formula.charAt(0) == '\u223c'){ // NEGACAO
-				ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
-				Atomo a1 = recuperarAtomo(formula.charAt(1));
-				No atomo = new No(a1);
-				return new No(c2, atomo);
-			}
-		if(formula.length() == 3){
-			ConectivoBinario conectivo = null;
-			switch(formula.charAt(1)){
-				case '\u2227'://E
-					conectivo = new ConectivoBinario(TipoConectivo.E);
-				break;
-				case '\u2228'://OU
-					conectivo = new ConectivoBinario(TipoConectivo.OU);
-				break;
-				case '\u2192'://SE
-					conectivo = new ConectivoBinario(TipoConectivo.SE_ENTAO);
-				break;
-				case '\u2194'://SSE
-					conectivo = new ConectivoBinario(TipoConectivo.SSE);
-				break;
-				default:
-					conectivo = new ConectivoBinario(TipoConectivo.OU);
-				break;
-			}
+		String formula = formulaComParensetes;
+		if(formulaComParensetes.charAt(0) == '(')
+			formula = formulaComParensetes.substring(1,formulaComParensetes.length()-1);
+		if(formula.length() == 1){
 			Atomo a1 = recuperarAtomo(formula.charAt(0));
-			Atomo a2 = recuperarAtomo(formula.charAt(2));
-			
-			No noA1 = new No(a1);
-        	No noA2 = new No(a2);
-
-        	return new No(conectivo,noA1,noA2);
+			No<Atomo> atomo = new No<>(a1);
+			return atomo;
 		}
+
+		// if(formula.length() == 2)
+		// 	if(formula.charAt(0) == '\u223c'){ // NEGACAO
+		// 		ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
+		// 		Atomo a1 = recuperarAtomo(formula.charAt(1));
+		// 		No atomo = new No(a1);
+		// 		return new No(c2, atomo);
+		// 	}
+		// if(formula.length() == 3){
+		// 	ConectivoBinario conectivo = null;
+		// 	switch(formula.charAt(1)){
+		// 		case '\u2227'://E
+		// 			conectivo = new ConectivoBinario(TipoConectivo.E);
+		// 		break;
+		// 		case '\u2228'://OU
+		// 			conectivo = new ConectivoBinario(TipoConectivo.OU);
+		// 		break;
+		// 		case '\u2192'://SE
+		// 			conectivo = new ConectivoBinario(TipoConectivo.SE_ENTAO);
+		// 		break;
+		// 		case '\u2194'://SSE
+		// 			conectivo = new ConectivoBinario(TipoConectivo.SSE);
+		// 		break;
+		// 		default:
+		// 			conectivo = new ConectivoBinario(TipoConectivo.OU);
+		// 		break;
+		// 	}
+		// 	Atomo a1 = recuperarAtomo(formula.charAt(0));
+		// 	Atomo a2 = recuperarAtomo(formula.charAt(2));
+			
+		// 	No noA1 = new No(a1);
+  //       	No noA2 = new No(a2);
+
+  //       	return new No(conectivo,noA1,noA2);
+		// }
 		int parenteses = 0, atual = -1;
 		No raiz = null;
 		do{
@@ -125,5 +136,9 @@ public class Formula{
 	public boolean avaliarArvore(){
 		valor = arvore.avaliar();
 		return valor;
+	}
+	public static void main(String args[]){
+		Formula f = new Formula("p"+'\u2227'+"q");
+		System.out.println(f.getValor());
 	}
 }
