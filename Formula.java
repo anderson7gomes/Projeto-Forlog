@@ -5,15 +5,18 @@ public class Formula{
 	private Atomo atomos[];
 
 	public Formula(String formulaRaw){
-		String formula = formulaRaw.replace(" ","");
-
-		//TODO: ler a string e formar a arvore
-		valor = false; // TODO:calcular
+		String formula = formulaRaw.replace(" ","").toLowerCase();
+		if(!isValida())
+			throw new IllegalArgumentException("A formula não é válida:\n" + formula);
 		qtdAtomos = 2; // TODO:calcular
+		
 		atomos = new Atomo[qtdAtomos];
-		atomos[0] = new Atomo('p',true);
-		atomos[1] = new Atomo('q',true);
+
+		atomos[0] = new Atomo('p',true);//teste
+		atomos[1] = new Atomo('q',true);//teste
+
 		arvore = criarArvore(formula);
+		valor = avaliarArvore();
 	}
 	private No criarArvore(String formulaComParensetes){
 		String formula = formulaComParensetes;
@@ -138,7 +141,7 @@ public class Formula{
 		return valor;
 	}
 	public static void main(String args[]){
-		Formula f = new Formula("p"+'\u2227'+"q");
+		Formula f = new Formula("(p"+'\u2227'+"q)");
 		System.out.println(f.getValor());
 	}
 }
