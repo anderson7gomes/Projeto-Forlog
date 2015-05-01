@@ -1,19 +1,16 @@
+import java.util.*;
 public class Formula{
 	private No arvore;
 	private boolean valor;
 	private int qtdAtomos;
 	private Atomo atomos[];
+	private String formulaPassada;
 
 	public Formula(String formulaRaw){
+		formulaPassada = formulaRaw;
 		String formula = formulaRaw.replace(" ","").toLowerCase();
-		if(!isValida())
+		if(!isValida(formula))
 			throw new IllegalArgumentException("A formula não é válida:\n" + formula);
-		qtdAtomos = 2; // TODO:calcular
-		
-		atomos = new Atomo[qtdAtomos];
-
-		atomos[0] = new Atomo('p',false);//teste
-		atomos[1] = new Atomo('q',true);//teste
 
 		arvore = criarArvore(formula);
 		valor = avaliarArvore();
@@ -39,7 +36,7 @@ public class Formula{
 		switch(formula.charAt(atual)){
 			case '\u223c'://NEGACAO
 				ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
-				raiz = new No(c2, criarArvore( formula.substring(atual + 1) ) );
+				raiz = new No<ConectivoUnario>(c2, criarArvore( formula.substring(atual + 1) ) );
 			break;
 			default://Outros casos (Binário)
 				atual++;
@@ -63,7 +60,7 @@ public class Formula{
 				}
 				No esquerda = criarArvore(formula.substring(0,atual));
 				No direita = criarArvore(formula.substring(atual + 1 ));
-				raiz = new No(conectivo,esquerda,direita);
+				raiz = new No<ConectivoBinario>(conectivo,esquerda,direita);
 			break;
 		}
 		return raiz;
@@ -76,9 +73,70 @@ public class Formula{
 		return null;
 	}
 
-	private boolean isValida(){
-		//TODO:Verificação da validade da formula, criar e contar os átomos
+	private boolean isValida(String formula){
+		if(formula.charAt(0) != '(' || formula.charAt(formula.length()-1) !=')')
+			return false;
+		
+		int abreParentese = 0 , fechaParentese = 0;
+		Set<Character> proposicoes = new HashSet<>();
 
+		for(int i = 0 ; i < formula.length();i++){
+			char atual = formula.charAt(i);
+			if(atual != ')' && atual != '(' && (atual < '\u0061' && atual > '\u007A') && atual != '\u2227' && atual != '\u2228' && atual != '\u2192' && atual != '\u2194' && atual != '\u223c')//não for um character válido 
+				return false;
+
+
+			if(atual == '('){
+				abreParentese++;
+				if(formula.charAt(i+1) == ')')
+					return false;
+			}
+			
+			if(atual == ')')
+				fechaParentese--;
+			
+			if(fechaParentese > abreParentese)
+				return false;
+			
+			if (atual >= '\u0061' && atual <= '\u007A'){//É proposição
+				proposicoes.add(atual);
+				if(proposicoes.size() > 5)
+					return false;
+				char proximo = formula.charAt(i+1);
+				if (proximo >= '\u0061' && proximo <= '\u007A')//É proposição
+					return false;
+				if(proximo == '(')
+					return false;
+			}
+			if(atual == '\u2227' || atual == '\u2228' || atual == '\u2192' || atual == '\u2194'){//É operador binário
+				char anterior = formula.charAt(i-1);
+				char proximo = formula.charAt(i+1);
+				if(proximo == ')' || proximo == '\u2227' || proximo == '\u2228' || proximo == '\u2192' || proximo == '\u2194' || proximo == '\u223c')//Operador sem operando à direita
+					return false;
+				if(anterior == '(' || anterior == '\u2227' || anterior == '\u2228' || anterior == '\u2192' || anterior == '\u2194' || anterior == '\u223c')//Operador sem operando à esquerda
+					return false;
+
+
+			}
+			if(atual == '\u223c'){//É operador Unário (negação)
+				if(formula.charAt(i-1) != '(')
+					return false;
+				char proximo = formula.charAt(i+1);
+				if(proximo == ')' || proximo == '\u2227' || proximo == '\u2228' || proximo == '\u2192' || proximo == '\u2194' || proximo == '\u223c')//Operador sem operando
+					return false;
+
+			}
+			
+		}
+
+
+		qtdAtomos = proposicoes.size();
+		atomos = new Atomo[qtdAtomos];
+		int i = 0;
+		for(Character rotulo : proposicoes){
+			atomos[i] = new Atomo(rotulo);
+			i++;
+		}
 		return true;
 	}
 	public boolean getValor(){
@@ -93,7 +151,7 @@ public class Formula{
 				return atomos[i].getValor();
 		throw new IllegalArgumentException("Átomo não existente");
 	}
-	//TODO: setValorPosicao e etc
+
 	public void setValorPreposicao(char rotulo, boolean valor){
 		for(int i = 0 ; i < qtdAtomos ; i++)
 			if(atomos[i].getRotulo() == rotulo){
@@ -106,19 +164,27 @@ public class Formula{
 		valor = arvore.avaliar();
 		return valor;
 	}
+
+	public void show(){
+		System.out.println(formulaPassada);
+		for(int i = 0 ; i < qtdAtomos; i++)
+			System.out.println(atomos[i]);
+		System.out.println("Valor Formula: "+valor+"\n-----------------------------------------------------------");
+	}
+
 	public static void main(String args[]){
 		String formula;
-		// formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
-		formula = "("+'\u223c' +"p)";
+		formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
+		// formula = "("+'\u223c' +"p)";
 		// formula = "(p"+'\u2192'+"q)";
 		// formula = "(p"+'\u2192'+"p)";
 		// formula = "(p "+'\u2194'+" q)";
+		// formula = "("+'\u223c'+"("+'\u223c'+"p))";
+		// formula = "((p)"+'\u2227'+"q)";
 		Formula f = new Formula(formula);
-		System.out.println("p="+f.getValorProposicao('p'));
-		System.out.println(formula + "\n" + f.getValor());
+		f.show();
 		f.setValorPreposicao('p',true);
-		System.out.println("p="+f.getValorProposicao('p'));
 		f.avaliarArvore();
-		System.out.println(formula + "\n" + f.getValor());
+		f.show();
 	}
 }
