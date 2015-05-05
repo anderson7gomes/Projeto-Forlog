@@ -1,5 +1,7 @@
 import java.util.*;
+
 public class Formula{
+	private String formulaRaw;
 	private No arvore;
 	private boolean valor;
 	private int qtdAtomos;
@@ -7,6 +9,7 @@ public class Formula{
 	private String formulaPassada;
 
 	public Formula(String formulaRaw){
+		this.formulaRaw = formulaRaw;
 		formulaPassada = formulaRaw;
 		String formula = formulaRaw.replace(" ","").toLowerCase();
 		if(!isValida(formula))
@@ -171,20 +174,28 @@ public class Formula{
 			System.out.println(atomos[i]);
 		System.out.println("Valor Formula: "+valor+"\n-----------------------------------------------------------");
 	}
-
+	public String getFormula(){
+		return formulaRaw;
+	}
+	
 	public static void main(String args[]){
 		String formula;
-		formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
+		// formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
 		// formula = "("+'\u223c' +"p)";
 		// formula = "(p"+'\u2192'+"q)";
 		// formula = "(p"+'\u2192'+"p)";
 		// formula = "(p "+'\u2194'+" q)";
 		// formula = "("+'\u223c'+"("+'\u223c'+"p))";
 		// formula = "((p)"+'\u2227'+"q)";
+		formula = "( "+"( "+" ( p "+'\u2227'+" q ) "+'\u2192'+" r ) "+'\u2194'+" s)";
 		Formula f = new Formula(formula);
-		f.show();
-		f.setValorPreposicao('p',true);
+		// f.show();
+		// f.setValorPreposicao('p',true);
+		// f.setValorPreposicao('s',true);
 		f.avaliarArvore();
 		f.show();
+		// JFrame janela = new JFrame();
+		DrawTree desenho = new DrawTree(formula,f.arvore,30);
+		
 	}
 }
