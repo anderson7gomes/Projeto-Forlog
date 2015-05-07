@@ -43,6 +43,8 @@ public class Formula{
 			break;
 			default://Outros casos (Binário)
 				atual++;
+				if(atual >= formula.length())
+					return criarArvore(formula.substring(0,formula.length()));
 				ConectivoBinario conectivo = null;
 				switch(formula.charAt(atual)){
 					case '\u2227'://E
@@ -96,7 +98,7 @@ public class Formula{
 			}
 			
 			if(atual == ')')
-				fechaParentese--;
+				fechaParentese++;
 			
 			if(fechaParentese > abreParentese)
 				return false;
@@ -132,7 +134,8 @@ public class Formula{
 			
 		}
 
-
+		if(abreParentese != fechaParentese)
+			return false;
 		qtdAtomos = proposicoes.size();
 		atomos = new Atomo[qtdAtomos];
 		int i = 0;
@@ -192,11 +195,12 @@ public class Formula{
 		// formula = "(p "+'\u2194'+" q)";
 		// formula = "("+'\u223c'+"("+'\u223c'+"p))";
 		// formula = "((p)"+'\u2227'+"q)";
-		formula = "( "+"( "+" ( p "+'\u2227'+" q ) "+'\u2192'+" r ) "+'\u2194'+" s)";
+		// formula = "( "+"( "+" ( p "+'\u2227'+" q ) "+'\u2192'+" r ) "+'\u2194'+" s)";
+		formula = "(((p)))";
 		Formula f = new Formula(formula);
 		// f.show();
 		// f.setValorPreposicao('p',true);
-		f.setValorProposicao('s',true);
+		// f.setValorProposicao('s',true);
 		// f.avaliarArvore();
 		f.show();
 		// JFrame janela = new JFrame();
