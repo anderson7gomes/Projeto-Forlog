@@ -1,4 +1,4 @@
-import javax.swing.JInputText;
+import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class TelaPrincipal extends JFrame {
 
     private JLabel label;
-    private JInputText inputFormula;
+    private JTextField inputFormula;
     private JButton botaoGerarTabela;
     private JButton botaoE;
     private JButton botaoOU;

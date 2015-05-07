@@ -2,27 +2,25 @@ public class Teste {
 
     public static void main(String[] args) {
     
-        Atomo a1 = new Atomo('p', true);
-        Atomo a2 = new Atomo('q', true);
+        String formulaString;
     
-        ConectivoBinario c1 = new ConectivoBinario(TipoConectivo.OU);
-        ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
+        //formulaString = String.format("((%c %c %c) %c (%c %c %c))", 
+                //'p', '\u2192', 'q', '\u2228', 'a', '\u2227', 'b');
         
-        No noA1 = new No(a1);
-        No noA2 = new No(a2);
+        formulaString = String.format("(((%c %c %c) %c %c) %c %c)", 
+                'p', '\u2227', 'q', '\u2192', 'r', '\u2194', 's');
         
-        No noConectivo1 = new No(c2, noA2);
-        No noConectivo2 = new No(c1, noA1, noA2);
+        Formula formula = new Formula(formulaString);
         
-        No noConectivo3 = new No(c1, noConectivo1, noConectivo2);
+        formula.setValorProposicao('p', false);
+        formula.setValorProposicao('q', false);
+        formula.setValorProposicao('r', false);
+        formula.setValorProposicao('s', true);
         
-        System.out.println(noConectivo3.avaliar());
-        String formula ="(eVp)";
-        System.out.println(formula.substring(1,formula.length()-1));
-        String teste = "este é um teste de espaços em branco";
-        String teste2 = teste.replace(" ","");
-        System.out.println(teste + " " + teste.length());
-        System.out.println(teste2 + " " + teste2.length());
+        formula.show();
+        
     }
 
 } // fim da classe Teste
+
+// (((p .e. q) -> r) <-> s)

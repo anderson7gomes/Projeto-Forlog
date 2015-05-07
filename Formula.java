@@ -155,7 +155,7 @@ public class Formula{
 		throw new IllegalArgumentException("Átomo não existente");
 	}
 
-	public void setValorPreposicao(char rotulo, boolean valor){
+	public void setValorProposicao(char rotulo, boolean valor){
 		for(int i = 0 ; i < qtdAtomos ; i++)
 			if(atomos[i].getRotulo() == rotulo){
 				atomos[i].setValor(valor);
