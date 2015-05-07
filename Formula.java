@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class Formula{
+public class Formula {
+
 	private String formulaRaw;
 	private No arvore;
 	private boolean valor;
@@ -8,87 +9,146 @@ public class Formula{
 	private Atomo atomos[];
 	private String formulaPassada;
 
-	public Formula(String formulaRaw){
+	public Formula(String formulaRaw) {
+	
 		this.formulaRaw = formulaRaw;
 		formulaPassada = formulaRaw;
 		String formula = formulaRaw.replace(" ","").toLowerCase();
-		if(!isValida(formula))
-			throw new IllegalArgumentException("A formula não é válida:\n" + formula);
-
+		
+		if (!isValida(formula)) {
+			throw new IllegalArgumentException("A formula não é válida:\n" + 
+			        formula);
+        }
+        
 		arvore = criarArvore(formula);
 		valor = avaliarArvore();
+
 	}
-	private No criarArvore(String formulaComParensetes){
-		String formula = formulaComParensetes;
-		if(formulaComParensetes.charAt(0) == '(')
-			formula = formulaComParensetes.substring(1,formulaComParensetes.length()-1);
-		if(formula.length() == 1){
+
+	private No criarArvore(String formulaComParenteses) {
+	
+		String formula = formulaComParenteses;
+		
+		if (formulaComParenteses.charAt(0) == '(') {
+			formula = formulaComParenteses.substring(1, 
+			        formulaComParenteses.length() - 1);
+		}
+			
+		if(formula.length() == 1) {
+		
 			Atomo a1 = recuperarAtomo(formula.charAt(0));
 			No<Atomo> atomo = new No<>(a1);
 			return atomo;
+
 		}
+		
 		int parenteses = 0, atual = -1;
 		No raiz = null;
-		do{
-			atual++;
-			if(formula.charAt(atual) == '(')
-				parenteses++;
-			if(formula.charAt(atual) == ')')
-				parenteses--;
-		}while(parenteses > 0);
-		switch(formula.charAt(atual)){
-			case '\u223c'://NEGACAO
-				ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
-				raiz = new No<ConectivoUnario>(c2, criarArvore( formula.substring(atual + 1) ) );
-			break;
-			default://Outros casos (Binário)
-				atual++;
-				if(atual >= formula.length())
-					return criarArvore(formula.substring(0,formula.length()));
-				ConectivoBinario conectivo = null;
-				switch(formula.charAt(atual)){
-					case '\u2227'://E
-						conectivo = new ConectivoBinario(TipoConectivo.E);
-					break;
-					case '\u2228'://OU
-						conectivo = new ConectivoBinario(TipoConectivo.OU);
-					break;
-					case '\u2192'://SE
-						conectivo = new ConectivoBinario(TipoConectivo.SE_ENTAO);
-					break;
-					case '\u2194'://SSE
-						conectivo = new ConectivoBinario(TipoConectivo.SSE);
-					break;
-					default:
-						conectivo = new ConectivoBinario(TipoConectivo.OU);
-					break;
-				}
-				No esquerda = criarArvore(formula.substring(0,atual));
-				No direita = criarArvore(formula.substring(atual + 1 ));
-				raiz = new No<ConectivoBinario>(conectivo,esquerda,direita);
-			break;
-		}
-		return raiz;
-	}
-
-	private Atomo recuperarAtomo(char rotulo){
-		for(int i = 0 ; i < qtdAtomos ; i++)
-			if(atomos[i].getRotulo() == rotulo)
-				return atomos[i];
-		return null;
-	}
-
-	private boolean isValida(String formula){
-		if(formula.charAt(0) != '(' || formula.charAt(formula.length()-1) !=')')
-			return false;
 		
-		int abreParentese = 0 , fechaParentese = 0;
+		do {
+		
+			atual++;
+			
+			if (formula.charAt(atual) == '(') {
+				parenteses++;
+			}
+				
+			if (formula.charAt(atual) == ')') {
+				parenteses--;
+			}	
+
+		} while (parenteses > 0);
+		
+		switch (formula.charAt(atual)) {
+		
+			case '\u223c': //NEGACAO
+			
+			    ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
+				raiz = new No<ConectivoUnario>(c2, 
+				        criarArvore( formula.substring(atual + 1) ) );
+			    break;
+			    
+			default: //Outros casos (Binário)
+			
+				atual++;
+				
+				if (atual >= formula.length()) {
+					return criarArvore(formula.substring(0, formula.length()));
+				}
+					
+				ConectivoBinario conectivo = null;
+				
+				switch(formula.charAt(atual)) {
+				
+					case '\u2227': //E
+					
+						conectivo = new ConectivoBinario(TipoConectivo.E);
+					    break;
+
+					case '\u2228': //OU
+					
+						conectivo = new ConectivoBinario(TipoConectivo.OU);
+					    break;
+					    
+					case '\u2192': //SE
+					
+						conectivo = new ConectivoBinario(TipoConectivo.SE_ENTAO);
+					    break;
+					    
+					case '\u2194': //SSE
+					
+						conectivo = new ConectivoBinario(TipoConectivo.SSE);
+					    break;
+					    
+					default:
+					
+						conectivo = new ConectivoBinario(TipoConectivo.OU);
+					    break;
+				}
+				
+				No esquerda = criarArvore(formula.substring(0, atual));
+				No direita = criarArvore(formula.substring(atual + 1));
+				raiz = new No<ConectivoBinario>(conectivo, esquerda, direita);
+			    break;
+		}
+		
+		return raiz;
+		
+	}
+
+	private Atomo recuperarAtomo(char rotulo) {
+	
+		for (int i = 0; i < qtdAtomos; i++) {
+		    if (atomos[i].getRotulo() == rotulo) {
+				return atomos[i];
+			}	
+		}		
+				
+		return null;
+
+	}
+
+	private boolean isValida(String formula) {
+	
+		if (formula.charAt(0) != '(' || 
+		        formula.charAt(formula.length()-1) != ')') {
+			return false;
+		}	
+		
+		int abreParentese = 0, fechaParentese = 0;
 		Set<Character> proposicoes = new HashSet<>();
 
-		for(int i = 0 ; i < formula.length();i++){
+		for(int i = 0; i < formula.length(); i++) {
+		
 			char atual = formula.charAt(i);
-			if(atual != ')' && atual != '(' && (atual < '\u0061' && atual > '\u007A') && atual != '\u2227' && atual != '\u2228' && atual != '\u2192' && atual != '\u2194' && atual != '\u223c')//não for um character válido 
+			
+			if (atual != ')' && atual != '(' && 
+			        (atual < '\u0061' && atual > '\u007A') && 
+			        atual != '\u2227' && atual != '\u2228' && 
+			        atual != '\u2192' && atual != '\u2194' && 
+			        atual != '\u223c') { // não for um character válido 
 				return false;
+			}	
 
 
 			if(atual == '('){
@@ -186,25 +246,5 @@ public class Formula{
 	public void draw(){
 		DrawTree desenho = new DrawTree(this.getFormula(),this.arvore,30);
 	}
-	public static void main(String args[]){
-		String formula;
-		// formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
-		// formula = "("+'\u223c' +"p)";
-		// formula = "(p"+'\u2192'+"q)";
-		// formula = "(p"+'\u2192'+"p)";
-		// formula = "(p "+'\u2194'+" q)";
-		// formula = "("+'\u223c'+"("+'\u223c'+"p))";
-		// formula = "((p)"+'\u2227'+"q)";
-		// formula = "( "+"( "+" ( p "+'\u2227'+" q ) "+'\u2192'+" r ) "+'\u2194'+" s)";
-		formula = "(((p)))";
-		Formula f = new Formula(formula);
-		// f.show();
-		// f.setValorPreposicao('p',true);
-		// f.setValorProposicao('s',true);
-		// f.avaliarArvore();
-		f.show();
-		// JFrame janela = new JFrame();
-		f.draw();
-		
-	}
-}
+	
+} // fim da classe Formula
