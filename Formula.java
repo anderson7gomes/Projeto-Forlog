@@ -158,7 +158,10 @@ public class Formula{
 	public void setValorProposicao(char rotulo, boolean valor){
 		for(int i = 0 ; i < qtdAtomos ; i++)
 			if(atomos[i].getRotulo() == rotulo){
-				atomos[i].setValor(valor);
+				if(atomos[i].getValor() != valor){
+					atomos[i].setValor(valor);
+					avaliarArvore();
+				}
 				return;
 			}
 		throw new IllegalArgumentException("Átomo não existente");	
@@ -177,7 +180,9 @@ public class Formula{
 	public String getFormula(){
 		return formulaRaw;
 	}
-	
+	public void draw(){
+		DrawTree desenho = new DrawTree(this.getFormula(),this.arvore,30);
+	}
 	public static void main(String args[]){
 		String formula;
 		// formula = "((p"+'\u2227'+"q)"+'\u2228'+"("+'\u223c'+"p))";
@@ -191,11 +196,11 @@ public class Formula{
 		Formula f = new Formula(formula);
 		// f.show();
 		// f.setValorPreposicao('p',true);
-		// f.setValorPreposicao('s',true);
-		f.avaliarArvore();
+		f.setValorProposicao('s',true);
+		// f.avaliarArvore();
 		f.show();
 		// JFrame janela = new JFrame();
-		DrawTree desenho = new DrawTree(formula,f.arvore,30);
+		f.draw();
 		
 	}
 }

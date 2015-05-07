@@ -15,9 +15,10 @@ public class Teste {
         formula.setValorProposicao('p', false);
         formula.setValorProposicao('q', false);
         formula.setValorProposicao('r', false);
-        formula.setValorProposicao('s', false);
+        formula.setValorProposicao('s', true);
         
         formula.show();
+        formula.draw();
         
     }
 
