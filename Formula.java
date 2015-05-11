@@ -138,7 +138,7 @@ public class Formula {
 		int abreParentese = 0, fechaParentese = 0;
 		Set<Character> proposicoes = new HashSet<>();
 
-		for(int i = 0; i < formula.length(); i++) {
+		for (int i = 0; i < formula.length(); i++) {
 		
 			char atual = formula.charAt(i);
 			
@@ -151,100 +151,179 @@ public class Formula {
 			}	
 
 
-			if(atual == '('){
+			if (atual == '(') {
+			
 				abreParentese++;
-				if(formula.charAt(i+1) == ')')
+				
+				if (formula.charAt(i + 1) == ')') {
 					return false;
+				}	
+
 			}
 			
-			if(atual == ')')
+			if (atual == ')') {
 				fechaParentese++;
+			}	
 			
-			if(fechaParentese > abreParentese)
+			if (fechaParentese > abreParentese) {
 				return false;
+			}	
 			
-			if (atual >= '\u0061' && atual <= '\u007A'){//É proposição
-				proposicoes.add(atual);
-				if(proposicoes.size() > 5)
+			if (atual >= '\u0061' && atual <= '\u007A') { //É proposição
+			
+				proposicoes.add(atual); 
+				
+				if (proposicoes.size() > 5) {
 					return false;
+				}
+					
 				char proximo = formula.charAt(i+1);
-				if (proximo >= '\u0061' && proximo <= '\u007A')//É proposição
+				
+				if (proximo >= '\u0061' && proximo <= '\u007A') { //É proposição
 					return false;
-				if(proximo == '(')
+				}
+					
+				if (proximo == '(') {
 					return false;
+				}	
+				
 			}
-			if(atual == '\u2227' || atual == '\u2228' || atual == '\u2192' || atual == '\u2194'){//É operador binário
-				char anterior = formula.charAt(i-1);
-				char proximo = formula.charAt(i+1);
-				if(proximo == ')' || proximo == '\u2227' || proximo == '\u2228' || proximo == '\u2192' || proximo == '\u2194' || proximo == '\u223c')//Operador sem operando à direita
+			
+			if (atual == '\u2227' || atual == '\u2228' || atual == '\u2192' || 
+			        atual == '\u2194') { // É operador binário
+			        
+				char anterior = formula.charAt(i - 1);
+				char proximo = formula.charAt(i + 1);
+				
+				if (proximo == ')' || proximo == '\u2227' || 
+				        proximo == '\u2228' || proximo == '\u2192' || 
+				        proximo == '\u2194' || proximo == '\u223c') { //Operador sem operando à direita
 					return false;
-				if(anterior == '(' || anterior == '\u2227' || anterior == '\u2228' || anterior == '\u2192' || anterior == '\u2194' || anterior == '\u223c')//Operador sem operando à esquerda
+				}
+					
+				if (anterior == '(' || anterior == '\u2227' || 
+				        anterior == '\u2228' || anterior == '\u2192' || 
+				        anterior == '\u2194' || anterior == '\u223c') { //Operador sem operando à esquerda
 					return false;
-
+				}	
 
 			}
-			if(atual == '\u223c'){//É operador Unário (negação)
-				if(formula.charAt(i-1) != '(')
+			
+			if (atual == '\u223c') { //É operador Unário (negação)
+			
+				if (formula.charAt(i - 1) != '(') {
 					return false;
-				char proximo = formula.charAt(i+1);
-				if(proximo == ')' || proximo == '\u2227' || proximo == '\u2228' || proximo == '\u2192' || proximo == '\u2194' || proximo == '\u223c')//Operador sem operando
+				}
+					
+				char proximo = formula.charAt(i + 1);
+				
+				if (proximo == ')' || proximo == '\u2227' || 
+				        proximo == '\u2228' || proximo == '\u2192' || 
+				        proximo == '\u2194' || proximo == '\u223c') { //Operador sem operando
 					return false;
+				}	
 
 			}
 			
 		}
 
-		if(abreParentese != fechaParentese)
+		if (abreParentese != fechaParentese) {
 			return false;
+		}
+			
 		qtdAtomos = proposicoes.size();
 		atomos = new Atomo[qtdAtomos];
+
 		int i = 0;
-		for(Character rotulo : proposicoes){
+		
+		for (Character rotulo : proposicoes) {
+		
 			atomos[i] = new Atomo(rotulo);
 			i++;
+
 		}
+
 		return true;
+
 	}
-	public boolean getValor(){
-		return valor;
+
+	public boolean getValor() {
+	    return valor;
 	}
-	public int quantidadeAtomos(){
+	
+	public int quantidadeAtomos() {
 		return qtdAtomos;
 	}
-	public boolean getValorProposicao(char rotulo){
-		for(int i = 0 ; i < qtdAtomos ; i++)
-			if(atomos[i].getRotulo() == rotulo)
+	
+	public boolean getValorProposicao(char rotulo) {
+	
+		for (int i = 0; i < qtdAtomos; i++) {
+		
+			if (atomos[i].getRotulo() == rotulo) {
 				return atomos[i].getValor();
+            }
+            
+		}
+				
 		throw new IllegalArgumentException("Átomo não existente");
+
 	}
 
-	public void setValorProposicao(char rotulo, boolean valor){
-		for(int i = 0 ; i < qtdAtomos ; i++)
-			if(atomos[i].getRotulo() == rotulo){
-				if(atomos[i].getValor() != valor){
+	public void setValorProposicao(char rotulo, boolean valor) {
+	
+		for (int i = 0; i < qtdAtomos; i++) {
+
+			if (atomos[i].getRotulo() == rotulo) {
+			
+				if (atomos[i].getValor() != valor) {
+				
 					atomos[i].setValor(valor);
 					avaliarArvore();
+
 				}
+				
 				return;
+				
 			}
+
+		}
+			
 		throw new IllegalArgumentException("Átomo não existente");	
+
 	}
-	public boolean avaliarArvore(){
+	
+	public boolean avaliarArvore() {
+	
 		valor = arvore.avaliar();
 		return valor;
+
 	}
 
-	public void show(){
+	public void show() {
+	
 		System.out.println(formulaPassada);
-		for(int i = 0 ; i < qtdAtomos; i++)
+		
+		for (int i = 0; i < qtdAtomos; i++) {
 			System.out.println(atomos[i]);
-		System.out.println("Valor Formula: "+valor+"\n-----------------------------------------------------------");
+		}
+			
+		System.out.println("Valor Formula: " + valor + 
+		        "\n-------------------------------" + 
+		        "----------------------------");
+
 	}
-	public String getFormula(){
+	
+	public String getFormula() {
 		return formulaRaw;
 	}
-	public void draw(){
+	
+	public void draw() {
 		DrawTree desenho = new DrawTree(this.getFormula(),this.arvore,30);
 	}
 	
 } // fim da classe Formula
+
+/* 
+ * otimizar condições de teste chamando métodos 
+ * da classe Atomo e da classe Conectivo 
+ */
