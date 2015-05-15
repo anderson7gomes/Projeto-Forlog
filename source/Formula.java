@@ -143,13 +143,10 @@ public class Formula {
 			char atual = formula.charAt(i);
 			
 			if (atual != ')' && atual != '(' && 
-			        (atual < '\u0061' && atual > '\u007A') && 
-			        atual != '\u2227' && atual != '\u2228' && 
-			        atual != '\u2192' && atual != '\u2194' && 
-			        atual != '\u223c') { // não for um character válido 
+			        (!Atomo.isAtomo(atual)) && 
+			        (!Conectivo.isConectivoValido(atual))) { // não for um character válido 
 				return false;
 			}	
-
 
 			if (atual == '(') {
 			
@@ -169,7 +166,7 @@ public class Formula {
 				return false;
 			}	
 			
-			if (atual >= '\u0061' && atual <= '\u007A') { //É proposição
+			if (Atomo.isAtomo(atual)) { //É proposição
 			
 				proposicoes.add(atual); 
 				
@@ -179,7 +176,7 @@ public class Formula {
 					
 				char proximo = formula.charAt(i+1);
 				
-				if (proximo >= '\u0061' && proximo <= '\u007A') { //É proposição
+				if (Atomo.isAtomo(proximo)) { //É proposição
 					return false;
 				}
 					
@@ -189,27 +186,22 @@ public class Formula {
 				
 			}
 			
-			if (atual == '\u2227' || atual == '\u2228' || atual == '\u2192' || 
-			        atual == '\u2194') { // É operador binário
+			if (Conectivo.isConectivoBinarioValido(atual)) { // É operador binário
 			        
 				char anterior = formula.charAt(i - 1);
 				char proximo = formula.charAt(i + 1);
 				
-				if (proximo == ')' || proximo == '\u2227' || 
-				        proximo == '\u2228' || proximo == '\u2192' || 
-				        proximo == '\u2194' || proximo == '\u223c') { //Operador sem operando à direita
+				if (proximo == ')' || Conectivo.isConectivoValido(proximo)) { //Operador sem operando à direita
 					return false;
 				}
 					
-				if (anterior == '(' || anterior == '\u2227' || 
-				        anterior == '\u2228' || anterior == '\u2192' || 
-				        anterior == '\u2194' || anterior == '\u223c') { //Operador sem operando à esquerda
+				if (anterior == '(' || Conectivo.isConectivoValido(anterior)) { //Operador sem operando à esquerda
 					return false;
 				}	
 
 			}
 			
-			if (atual == '\u223c') { //É operador Unário (negação)
+			if (Conectivo.isConectivoUnarioValido(atual)) { //É operador Unário (negação)
 			
 				if (formula.charAt(i - 1) != '(') {
 					return false;
@@ -217,9 +209,7 @@ public class Formula {
 					
 				char proximo = formula.charAt(i + 1);
 				
-				if (proximo == ')' || proximo == '\u2227' || 
-				        proximo == '\u2228' || proximo == '\u2192' || 
-				        proximo == '\u2194' || proximo == '\u223c') { //Operador sem operando
+				if (proximo == ')' || Conectivo.isConectivoValido(proximo)) { //Operador sem operando
 					return false;
 				}	
 
@@ -322,8 +312,3 @@ public class Formula {
 	}
 	
 } // fim da classe Formula
-
-/* 
- * otimizar condições de teste chamando métodos 
- * da classe Atomo e da classe Conectivo 
- */
