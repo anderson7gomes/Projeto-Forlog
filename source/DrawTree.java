@@ -34,7 +34,7 @@ public class DrawTree extends JFrame {
 	}
 	
 	public void paint(Graphics g) {
-        drawTree(raiz,g,350 - 15,0,30);
+        drawTree(raiz,g,350 - 15,30,30);
 	}
 	
 	private void drawTree(No no, Graphics g, int x, int y, int dist) {

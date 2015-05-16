@@ -64,30 +64,30 @@ public class TelaPrincipal extends JFrame implements ActionListener{
 		menuBar.setBackground(Color.white);
 		
 		menuFile = new JMenu("Arquivo");
-		menuFile.setMnemonic(KeyEvent.VK_R);
+		// menuFile.setMnemonic(KeyEvent.VK_R);
 		menuAbout = new JMenu("Sobre");
-		menuAbout.setMnemonic(KeyEvent.VK_O);
+		// menuAbout.setMnemonic(KeyEvent.VK_O);
 		menuBar.add(menuFile);
 		menuBar.add(menuAbout);
 		
 		itemNovo = new JMenuItem("Novo");
 		itemNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
-		itemNovo.setMnemonic(KeyEvent.VK_N);
+		// itemNovo.setMnemonic(KeyEvent.VK_N);
 		itemNovo.addActionListener(this);
 		
 		itemAbrir = new JMenuItem("Abrir");
 		itemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
-		itemAbrir.setMnemonic(KeyEvent.VK_A);
+		// itemAbrir.setMnemonic(KeyEvent.VK_A);
 		itemAbrir.addActionListener(this);
 		
 		itemSalvar = new JMenuItem("Salvar");
 		itemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
-		itemSalvar.setMnemonic(KeyEvent.VK_S);
+		// itemSalvar.setMnemonic(KeyEvent.VK_S);
 		itemSalvar.addActionListener(this);
 		
 		itemSair = new JMenuItem("Sair");
 		itemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, 0));
-		itemSair.setMnemonic(KeyEvent.VK_R);
+		// itemSair.setMnemonic(KeyEvent.VK_R);
 		itemSair.addActionListener(this);
 		
 		menuFile.add(itemNovo);
@@ -97,12 +97,12 @@ public class TelaPrincipal extends JFrame implements ActionListener{
 
 		itemDesenvolvedores = new JMenuItem("Desenvolvedores");
 		itemDesenvolvedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
-		itemDesenvolvedores.setMnemonic(KeyEvent.VK_D);
+		// itemDesenvolvedores.setMnemonic(KeyEvent.VK_D);
 		itemDesenvolvedores.addActionListener(this);
 		
 		itemAjuda = new JMenuItem("Ajuda");
 		itemAjuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, 0));
-		itemAjuda.setMnemonic(KeyEvent.VK_J);
+		// itemAjuda.setMnemonic(KeyEvent.VK_J);
 		itemAjuda.addActionListener(this);
 
 		menuAbout.add(itemDesenvolvedores);
@@ -251,14 +251,15 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     	try{
  	   		Formula formulaTeste = new Formula(texto);
     		botaoDesenharArvore.setEnabled(true);
+    		formula = formulaTeste;
+    		JOptionPane.showMessageDialog(null,"Formula Válida");
     	}catch(IllegalArgumentException e){
     		JOptionPane.showMessageDialog(null,"A formula não é válida");
     	}
-    	JOptionPane.showMessageDialog(null,"Passou");
-
     }
     public void button_DesenharArvore_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Desenhar");
+    	// JOptionPane.showMessageDialog(null,"Foi Desenhar");
+    	formula.draw();
     }
     public void button_Abrir_Pressed(){
     	JOptionPane.showMessageDialog(null,"Foi Abrir");
