@@ -9,7 +9,7 @@ public class DrawTree extends JFrame {
 	
 	public DrawTree(String formula, No raiz, int tamanho) {
 	
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);  
 		this.setBackground(Color.white);
 		this.setTitle(formula);
 		this.setSize(700,700);

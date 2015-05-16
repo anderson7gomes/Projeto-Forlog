@@ -25,6 +25,7 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     private JLabel label;
     private JTextField inputFormula;
     private JButton botaoGerarTabela;
+    private JButton botaoDesenharArvore;
     private JButton botaoE;
     private JButton botaoOU;
     private JButton botaoSE;
@@ -40,6 +41,8 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     private JMenuItem itemSair;
     private JMenuItem itemDesenvolvedores;
     private JMenuItem itemAjuda;
+
+    private Formula formula;
     public TelaPrincipal(String title){
     	super(title);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -61,7 +64,9 @@ public class TelaPrincipal extends JFrame implements ActionListener{
 		menuBar.setBackground(Color.white);
 		
 		menuFile = new JMenu("Arquivo");
+		menuFile.setMnemonic(KeyEvent.VK_R);
 		menuAbout = new JMenu("Sobre");
+		menuAbout.setMnemonic(KeyEvent.VK_O);
 		menuBar.add(menuFile);
 		menuBar.add(menuAbout);
 		
@@ -113,18 +118,27 @@ public class TelaPrincipal extends JFrame implements ActionListener{
 		panelLogica = new JPanel();
 		panelLogica.setLayout(new BorderLayout());
 		panelContent.add(panelLogica,BorderLayout.NORTH);
+		
 		panelLogica1 = new JPanel();
 		panelLogica1.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panelLogica.add(panelLogica1,BorderLayout.NORTH);
+		
 		label = new JLabel("Formula:");
 		panelLogica1.add(label);
+		
 		inputFormula = new JTextField("");
 		inputFormula.setColumns(50);
 		inputFormula.setSize(100,100);
 		panelLogica1.add(inputFormula);
+
 		botaoGerarTabela = new JButton("Gerar Tabela");
 		botaoGerarTabela.addActionListener(this);
 		panelLogica1.add(botaoGerarTabela);
+
+		botaoDesenharArvore = new JButton("Desenhar Arvore");
+		botaoDesenharArvore.addActionListener(this);
+		botaoDesenharArvore.setEnabled(false);
+		panelLogica1.add(botaoDesenharArvore);		
 		//FIM Input da Formula
 		
 		//Botões proposições
@@ -163,6 +177,9 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     		case "Gerar Tabela":	
     			button_GerarTabela_Pressed();
     		break;
+    		case "Desenhar Arvore":
+    			button_DesenharArvore_Pressed();
+    		break;
     		case "E":	
     			button_E_Pressed();
     		break;
@@ -199,22 +216,49 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     	}
     }
     public void button_E_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi E");
+    	// JOptionPane.showMessageDialog(null,"Foi E");
+    	String texto = inputFormula.getText();
+    	texto += " " + '\u2227' + " ";
+    	inputFormula.setText(texto);
     }
     public void button_OU_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi OU");
+    	// JOptionPane.showMessageDialog(null,"Foi OU");
+    	String texto = inputFormula.getText();
+    	texto += " " + '\u2228' + " ";
+    	inputFormula.setText(texto);
     }
     public void button_NEGACAO_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi N");
+    	// JOptionPane.showMessageDialog(null,"Foi N");
+    	String texto = inputFormula.getText();
+    	texto += " " + '\u223c' + " ";
+    	inputFormula.setText(texto);
     }
     public void button_SE_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi SE");
+    	// JOptionPane.showMessageDialog(null,"Foi SE");
+    	String texto = inputFormula.getText();
+    	texto += " " + '\u2192' + " ";
+    	inputFormula.setText(texto);
     }
     public void button_SSE_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi SSE");
+    	// JOptionPane.showMessageDialog(null,"Foi SSE");
+    	String texto = inputFormula.getText();
+    	texto += " " + '\u2194' + " ";
+    	inputFormula.setText(texto);
     }
     public void button_GerarTabela_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi GE");
+    	// JOptionPane.showMessageDialog(null,"Foi GE");
+    	String texto = inputFormula.getText();
+    	try{
+ 	   		Formula formulaTeste = new Formula(texto);
+    		botaoDesenharArvore.setEnabled(true);
+    	}catch(IllegalArgumentException e){
+    		JOptionPane.showMessageDialog(null,"A formula não é válida");
+    	}
+    	JOptionPane.showMessageDialog(null,"Passou");
+
+    }
+    public void button_DesenharArvore_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Desenhar");
     }
     public void button_Abrir_Pressed(){
     	JOptionPane.showMessageDialog(null,"Foi Abrir");
@@ -226,7 +270,8 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     	JOptionPane.showMessageDialog(null,"Foi Salva");
     }
     public void button_Sair_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Sair");
+    	// JOptionPane.showMessageDialog(null,"Foi Sair");
+    	System.exit(0);
     }
     public void button_Desenvolvedores_Pressed(){
     	JOptionPane.showMessageDialog(null,"Foi Dev");
