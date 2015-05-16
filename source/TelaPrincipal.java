@@ -114,7 +114,7 @@ public class TelaPrincipal extends JFrame implements ActionListener{
 		panelLogica.setLayout(new BorderLayout());
 		panelContent.add(panelLogica,BorderLayout.NORTH);
 		panelLogica1 = new JPanel();
-		panelLogica1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panelLogica1.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panelLogica.add(panelLogica1,BorderLayout.NORTH);
 		label = new JLabel("Formula:");
 		panelLogica1.add(label);
@@ -159,7 +159,79 @@ public class TelaPrincipal extends JFrame implements ActionListener{
     }
     public void actionPerformed(ActionEvent e){
     	//Eventos
-    	JOptionPane.showMessageDialog(null,"Tecla: " + e.getModifiers());
+    	switch(e.getActionCommand()){
+    		case "Gerar Tabela":	
+    			button_GerarTabela_Pressed();
+    		break;
+    		case "E":	
+    			button_E_Pressed();
+    		break;
+    		case "OU":	
+    			button_OU_Pressed();
+    		break;
+    		case "NEGAÇÃO":	
+    			button_NEGACAO_Pressed();
+    		break;
+    		case "SE":	
+    			button_SE_Pressed();
+    		break;
+    		case "SSE":	
+    			button_SSE_Pressed();
+    		break;
+    		case "Abrir":	
+    			button_Abrir_Pressed();
+    		break;
+    		case "Novo":	
+    			button_Novo_Pressed();
+    		break;
+    		case "Salvar":	
+    			button_Salvar_Pressed();
+    		break;
+    		case "Sair":	
+    			button_Sair_Pressed();
+    		break;
+    		case "Desenvolvedores":	
+    			button_Desenvolvedores_Pressed();
+    		break;
+    		case "Ajuda":	
+    			button_Ajuda_Pressed();
+    		break;
+    	}
     }
-
+    public void button_E_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi E");
+    }
+    public void button_OU_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi OU");
+    }
+    public void button_NEGACAO_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi N");
+    }
+    public void button_SE_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi SE");
+    }
+    public void button_SSE_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi SSE");
+    }
+    public void button_GerarTabela_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi GE");
+    }
+    public void button_Abrir_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Abrir");
+    }
+    public void button_Novo_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Novo");
+    }
+    public void button_Salvar_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Salva");
+    }
+    public void button_Sair_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Sair");
+    }
+    public void button_Desenvolvedores_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Dev");
+    }
+    public void button_Ajuda_Pressed(){
+    	JOptionPane.showMessageDialog(null,"Foi Ajuda");
+    }
 } // fim da classe TelaPrincipal
