@@ -10,9 +10,12 @@ import javax.swing.JMenuItem;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.*;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 
-public class TelaPrincipal extends JFrame{
+public class TelaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel;
 	private JPanel panelContent;
 	private JPanel panelLogica;
@@ -31,12 +34,23 @@ public class TelaPrincipal extends JFrame{
     private JMenuBar menuBar;
     private JMenu menuFile;
     private JMenu menuAbout;
+    private JMenuItem itemNovo;
+    private JMenuItem itemAbrir;
+    private JMenuItem itemSalvar;
+    private JMenuItem itemSair;
+    private JMenuItem itemDesenvolvedores;
+    private JMenuItem itemAjuda;
     public TelaPrincipal(String title){
     	super(title);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
     	setSize(700,700);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
+		}catch(Exception e){
+			System.out.println(e);
+		}
 
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -45,10 +59,50 @@ public class TelaPrincipal extends JFrame{
 		menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
 		menuBar.setBackground(Color.white);
+		
 		menuFile = new JMenu("Arquivo");
 		menuAbout = new JMenu("Sobre");
 		menuBar.add(menuFile);
 		menuBar.add(menuAbout);
+		
+		itemNovo = new JMenuItem("Novo");
+		itemNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
+		itemNovo.setMnemonic(KeyEvent.VK_N);
+		itemNovo.addActionListener(this);
+		
+		itemAbrir = new JMenuItem("Abrir");
+		itemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
+		itemAbrir.setMnemonic(KeyEvent.VK_A);
+		itemAbrir.addActionListener(this);
+		
+		itemSalvar = new JMenuItem("Salvar");
+		itemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
+		itemSalvar.setMnemonic(KeyEvent.VK_S);
+		itemSalvar.addActionListener(this);
+		
+		itemSair = new JMenuItem("Sair");
+		itemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, 0));
+		itemSair.setMnemonic(KeyEvent.VK_R);
+		itemSair.addActionListener(this);
+		
+		menuFile.add(itemNovo);
+		menuFile.add(itemAbrir);
+		menuFile.add(itemSalvar);
+		menuFile.add(itemSair);
+
+		itemDesenvolvedores = new JMenuItem("Desenvolvedores");
+		itemDesenvolvedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
+		itemDesenvolvedores.setMnemonic(KeyEvent.VK_D);
+		itemDesenvolvedores.addActionListener(this);
+		
+		itemAjuda = new JMenuItem("Ajuda");
+		itemAjuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, 0));
+		itemAjuda.setMnemonic(KeyEvent.VK_J);
+		itemAjuda.addActionListener(this);
+
+		menuAbout.add(itemDesenvolvedores);
+		menuAbout.add(itemAjuda);
+
 		panel.add(menuBar,BorderLayout.NORTH);
 		//FIM Menu
 
@@ -69,6 +123,7 @@ public class TelaPrincipal extends JFrame{
 		inputFormula.setSize(100,100);
 		panelLogica1.add(inputFormula);
 		botaoGerarTabela = new JButton("Gerar Tabela");
+		botaoGerarTabela.addActionListener(this);
 		panelLogica1.add(botaoGerarTabela);
 		//FIM Input da Formula
 		
@@ -82,6 +137,13 @@ public class TelaPrincipal extends JFrame{
 		botaoSE = new JButton("SE");
 		botaoSSE = new JButton("SSE");
 		botaoNEGACAO = new JButton("NEGAÇÃO");
+
+		botaoE.addActionListener(this);
+		botaoOU.addActionListener(this);
+		botaoSE.addActionListener(this);
+		botaoSSE.addActionListener(this);
+		botaoNEGACAO.addActionListener(this);
+
 		panelLogica2.add(botaoE);
 		panelLogica2.add(botaoOU);
 		panelLogica2.add(botaoNEGACAO);
@@ -94,6 +156,10 @@ public class TelaPrincipal extends JFrame{
 		tabelaVerdade = new JTable(3,3);
 		panelTable.add(tabelaVerdade);
 		pack();
+    }
+    public void actionPerformed(ActionEvent e){
+    	//Eventos
+    	JOptionPane.showMessageDialog(null,"Tecla: " + e.getModifiers());
     }
 
 } // fim da classe TelaPrincipal
