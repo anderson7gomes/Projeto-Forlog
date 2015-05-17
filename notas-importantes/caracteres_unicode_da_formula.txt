@@ -1,7 +1,14 @@
 E = '\u2227'
 OU = '\u2228'
+NEGACAO = '\u223c'
 SE_ENTAO = '\u2192' 
 SSE = '\u2194'
-NEGACAO = '\u223c'
 
 Intervalo de átomos válidos = 'a' a 'z' ou '\u0061' a '\u007a' 
+
+Atalhos:
+1 - E
+2 - OU
+3 - NEGACAO
+4 - SE_ENTAO
+5 - SSE

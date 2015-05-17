@@ -14,6 +14,8 @@ import java.awt.event.*;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
+import javax.swing.table.*;
+import javax.swing.JScrollPane;
 
 public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 	private JPanel panel;
@@ -169,8 +171,11 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 
 		panelTable = new JPanel();
 		panelContent.add(panelTable);
-		tabelaVerdade = new JTable(3,3);
-		panelTable.add(tabelaVerdade);
+		tabelaVerdade = new JTable();
+		tabelaVerdade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		JScrollPane scroll = new JScrollPane(tabelaVerdade);  
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+		panelTable.add(scroll);
 		pack();
     }
     public void actionPerformed(ActionEvent e){
@@ -217,6 +222,32 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     		break;
     	}
     }
+    public void setTable(){
+    	TableModel dataModel = new AbstractTableModel() {
+          public int getColumnCount() { 
+          	return formula.quantidadeAtomos() + 1; 
+          }
+          public int getRowCount() { 
+          	return (int)(Math.pow(2,formula.quantidadeAtomos()));
+          }
+          public Object getValueAt(int row, int col) { 
+          	
+          	//TODO: Permutações dos valores das proposições
+
+          	if(col < formula.quantidadeAtomos())
+          		return formula.getValorProposicao(formula.getProposicao(col));
+          	return formula.getValor();
+          }
+          public String getColumnName(int columnIndex){
+          	if(columnIndex < formula.quantidadeAtomos())
+          		return String.valueOf(formula.getProposicao(columnIndex));
+          	return "Resultado";
+          }
+      };
+      tabelaVerdade.setModel(dataModel);
+
+      pack();
+    }
     public void button_E_Pressed(){
     	// JOptionPane.showMessageDialog(null,"Foi E");
     	String texto = inputFormula.getText();
@@ -255,6 +286,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     		botaoDesenharArvore.setEnabled(true);
     		formula = formulaTeste;
     		JOptionPane.showMessageDialog(null,"Formula Válida");
+    		setTable();
     	}catch(IllegalArgumentException e){
     		JOptionPane.showMessageDialog(null,"A formula não é válida");
     	}catch(Exception e){
@@ -290,14 +322,15 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
  		   // JOptionPane.showMessageDialog(null,texto);
     }  
     public void keyReleased(KeyEvent e){  
-    	String texto = inputFormula.getText();
-    	texto = texto.replace("1"," " + '\u2227' + " ");
-    	texto = texto.replace("2"," " + '\u2228' + " ");
-    	texto = texto.replace("3"," " + '\u223c' + " ");
-    	texto = texto.replace("4"," " + '\u2192' + " ");
-    	texto = texto.replace("5"," " + '\u2194' + " ");
-    	inputFormula.setText(texto);
-    	// JOptionPane.showMessageDialog(null,texto);
+    	if(e.getKeyCode() >= KeyEvent.VK_1 && e.getKeyCode() <= KeyEvent.VK_5){
+	    	String texto = inputFormula.getText();
+	    	texto = texto.replace("1"," " + '\u2227' + " ");
+	    	texto = texto.replace("2"," " + '\u2228' + " ");
+	    	texto = texto.replace("3"," " + '\u223c' + " ");
+	    	texto = texto.replace("4"," " + '\u2192' + " ");
+	    	texto = texto.replace("5"," " + '\u2194' + " ");
+	    	inputFormula.setText(texto);
+    	}
     }  
     public void keyTyped(KeyEvent e){         
     }

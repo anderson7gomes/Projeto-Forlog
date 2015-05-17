@@ -244,6 +244,11 @@ public class Formula {
 	public int quantidadeAtomos() {
 		return qtdAtomos;
 	}
+	public char getProposicao(int i){
+		if(i >= 0 && i < qtdAtomos)
+			return atomos[i].getRotulo();
+		return ' ';
+	}
 	
 	public boolean getValorProposicao(char rotulo) {
 	
@@ -281,7 +286,10 @@ public class Formula {
 		throw new IllegalArgumentException("Átomo não existente");	
 
 	}
-	
+	public void setValorIndex(int i,boolean valor){
+		if(i >= 0 && i <qtdAtomos)
+			atomos[i].setValor(valor);
+	}
 	public boolean avaliarArvore() {
 	
 		valor = arvore.avaliar();
