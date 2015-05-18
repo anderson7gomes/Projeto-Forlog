@@ -30,7 +30,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     private JButton botaoDesenharArvore;
     private JButton botaoE;
     private JButton botaoOU;
-    private JButton botaoSE;
+    private JButton botaoSE_ENTAO;
     private JButton botaoSSE;
     private JButton botaoNEGACAO;
     private JTable tabelaVerdade;
@@ -52,6 +52,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	setSize(700,700);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setResizable(false);
 		try{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
 		}catch(Exception e){
@@ -152,20 +153,20 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 
 		botaoE = new JButton("E");
 		botaoOU = new JButton("OU");
-		botaoSE = new JButton("SE");
+		botaoSE_ENTAO = new JButton("SE_ENTÃO");
 		botaoSSE = new JButton("SSE");
 		botaoNEGACAO = new JButton("NEGAÇÃO");
 
 		botaoE.addActionListener(this);
 		botaoOU.addActionListener(this);
-		botaoSE.addActionListener(this);
+		botaoSE_ENTAO.addActionListener(this);
 		botaoSSE.addActionListener(this);
 		botaoNEGACAO.addActionListener(this);
 
 		panelLogica2.add(botaoE);
 		panelLogica2.add(botaoOU);
 		panelLogica2.add(botaoNEGACAO);
-		panelLogica2.add(botaoSE);
+		panelLogica2.add(botaoSE_ENTAO);
 		panelLogica2.add(botaoSSE);
 		//FIM Botões proposições
 
@@ -196,8 +197,8 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     		case "NEGAÇÃO":	
     			button_NEGACAO_Pressed();
     		break;
-    		case "SE":	
-    			button_SE_Pressed();
+    		case "SE_ENTAO":	
+    			button_SE_ENTAO_Pressed();
     		break;
     		case "SSE":	
     			button_SSE_Pressed();
@@ -275,7 +276,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	texto += " " + '\u223c' + " ";
     	inputFormula.setText(texto);
     }
-    public void button_SE_Pressed(){
+    public void button_SE_ENTAO_Pressed(){
     	// JOptionPane.showMessageDialog(null,"Foi SE");
     	String texto = inputFormula.getText();
     	texto += " " + '\u2192' + " ";
@@ -294,7 +295,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
  	   		Formula formulaTeste = new Formula(texto);
     		botaoDesenharArvore.setEnabled(true);
     		formula = formulaTeste;
-    		JOptionPane.showMessageDialog(null,"Formula Válida");
+    		//JOptionPane.showMessageDialog(null,"Formula Válida");
     		setTable();
     	}catch(IllegalArgumentException e){
     		JOptionPane.showMessageDialog(null,"A formula não é válida");
