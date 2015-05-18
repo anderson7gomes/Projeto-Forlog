@@ -84,7 +84,7 @@ public class JPanelD extends JPanel {
 				
 			} else {
 			
-				g.drawLine(x + (tamanho) / 2, y + tamanho, x + tamanho / 2, 
+				g.drawLine(x + (tamanho) / 2, y + tamanho, no.getFilhoEsquerdo().getX() + tamanho/2, 
 				        no.getFilhoEsquerdo().getY());
 
 				drawTree(no.getFilhoEsquerdo(), g, dist);
