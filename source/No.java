@@ -3,7 +3,19 @@ public class No<T> {
 	private T elemento;
 	private No esquerdo,direito;
 	private boolean isFolha;
-	
+	private int x,y;
+	public int getX(){
+		return x;
+	}
+	public void setX(int x){
+		this.x = x;
+	}
+	public int getY(){
+		return y;
+	}
+	public void setY(int y){
+		this.y = y;
+	}
 	public No(T elemento, No esquerdo, No direito) {
 	
 		if (!(elemento instanceof Atomo) && !(elemento instanceof Conectivo)) {
