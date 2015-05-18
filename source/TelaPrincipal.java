@@ -87,6 +87,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		itemSalvar = new JMenuItem("Salvar");
 		// itemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
 		itemSalvar.setMnemonic(KeyEvent.VK_S);
+		itemSalvar.setEnabled(false);
 		itemSalvar.addActionListener(this);
 		
 		itemSair = new JMenuItem("Sair");
@@ -294,6 +295,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	try{
  	   		Formula formulaTeste = new Formula(texto);
     		botaoDesenharArvore.setEnabled(true);
+    		itemSalvar.setEnabled(true);
     		formula = formulaTeste;
     		//JOptionPane.showMessageDialog(null,"Formula Válida");
     		setTable();
