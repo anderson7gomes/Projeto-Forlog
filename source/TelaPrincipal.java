@@ -316,9 +316,12 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     public void button_Novo_Pressed(){
     	JOptionPane.showMessageDialog(null,"Foi Novo");
     }
-    public void button_Salvar_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Salva");
+    public void button_Salvar_Pressed() {
+    
+    	Formula 
+
     }
+    
     public void button_Sair_Pressed(){
     	// JOptionPane.showMessageDialog(null,"Foi Sair");
     	System.exit(0);
@@ -332,6 +335,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     public void keyPressed(KeyEvent e) {     
  		   // String texto = inputFormula.getText();
  		   // JOptionPane.showMessageDialog(null,texto);
+ 		   itemSalvar.setEnabled(false);
     }  
     public void keyReleased(KeyEvent e){  
     	if(e.getKeyCode() >= KeyEvent.VK_1 && e.getKeyCode() <= KeyEvent.VK_5){
