@@ -153,7 +153,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 
 		botaoE = new JButton("E");
 		botaoOU = new JButton("OU");
-		botaoSE_ENTAO = new JButton("SE_ENTÃO");
+		botaoSE_ENTAO = new JButton("SE_ENTAO");
 		botaoSSE = new JButton("SSE");
 		botaoNEGACAO = new JButton("NEGAÇÃO");
 
@@ -173,7 +173,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		panelTable = new JPanel();
 		panelContent.add(panelTable);
 		tabelaVerdade = new JTable();
-		tabelaVerdade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		//tabelaVerdade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scroll = new JScrollPane(tabelaVerdade);  
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
 		panelTable.add(scroll);
