@@ -225,27 +225,36 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     public void setTable(){
     	TableModel dataModel = new AbstractTableModel() {
           public int getColumnCount() { 
-          	return formula.quantidadeAtomos() + 1; 
+          	return formula.getQuantidadeAtomos() + 1; 
           }
           public int getRowCount() { 
-          	return (int)(Math.pow(2,formula.quantidadeAtomos()));
+          	return (int)(Math.pow(2,formula.getQuantidadeAtomos()));
           }
           public Object getValueAt(int row, int col) { 
-          	
-          	//TODO: Permutações dos valores das proposições
-
-          	if(col < formula.quantidadeAtomos())
+            String binario = Integer.toBinaryString(row);
+            String complemento = "";
+            for(int i = 0 ; i < formula.getQuantidadeAtomos() - binario.length();i++)
+                complemento+="0";
+            binario = complemento+binario;
+            for(int i = 0 ; i < formula.getQuantidadeAtomos();i++){
+                if(binario.charAt(i) == '0'){
+                    formula.setValorIndex(i,false);        
+                }
+                else{
+                    formula.setValorIndex(i,true);
+                }
+            }
+          	if(col < formula.getQuantidadeAtomos())
           		return formula.getValorProposicao(formula.getProposicao(col));
           	return formula.getValor();
           }
           public String getColumnName(int columnIndex){
-          	if(columnIndex < formula.quantidadeAtomos())
+          	if(columnIndex < formula.getQuantidadeAtomos())
           		return String.valueOf(formula.getProposicao(columnIndex));
           	return "Resultado";
           }
       };
       tabelaVerdade.setModel(dataModel);
-
       pack();
     }
     public void button_E_Pressed(){

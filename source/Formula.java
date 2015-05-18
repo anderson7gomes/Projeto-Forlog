@@ -241,7 +241,7 @@ public class Formula {
 	    return valor;
 	}
 	
-	public int quantidadeAtomos() {
+	public int getQuantidadeAtomos() {
 		return qtdAtomos;
 	}
 	public char getProposicao(int i){
@@ -287,8 +287,12 @@ public class Formula {
 
 	}
 	public void setValorIndex(int i,boolean valor){
-		if(i >= 0 && i <qtdAtomos)
-			atomos[i].setValor(valor);
+		if(i >= 0 && i <qtdAtomos){
+			if(atomos[i].getValor() != valor) {	
+				atomos[i].setValor(valor);
+				avaliarArvore();
+			}
+		}
 	}
 	public boolean avaliarArvore() {
 	
