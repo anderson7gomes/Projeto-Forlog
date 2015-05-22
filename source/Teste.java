@@ -22,6 +22,8 @@ public class Teste {
                 String.format("(%c %c %c)", 'p', '\u2228', 'q'));
         
         formula.show();
+
+	//comment
         
     }
 
