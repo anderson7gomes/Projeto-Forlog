@@ -29,7 +29,7 @@ public class No<T> {
 		        (direito != null || esquerdo != null)) {
 		        
 			throw new IllegalArgumentException("Um nó folha não " + 
-			        "pode recber filhos");
+			        "pode receber filhos");
 
 		}
 			        

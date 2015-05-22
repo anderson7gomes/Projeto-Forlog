@@ -2,24 +2,26 @@ public class Teste {
 
     public static void main(String[] args) {
     
-        // String formulaString;
+        Atomo p = new Atomo('p');
+        Atomo q = new Atomo('q');
+        
+        No<Atomo> noP = new No<Atomo>(p);
+        No<Atomo> noQ = new No<Atomo>(q);
+        
+        Conectivo c = new ConectivoBinario(TipoConectivo.OU);
     
-        // //formulaString = String.format("((%c %c %c) %c (%c %c %c))", 
-        //         //'p', '\u2192', 'q', '\u2228', 'a', '\u2227', 'b');
+        No<Conectivo> no = new No<Conectivo>(c, noP, noQ);
         
-        // formulaString = String.format("(((%c %c %c) %c %c) %c %c)", 
-        //         'p', '\u2227', 'q', '\u2192', 'r', '\u2194', 's');
+        System.out.println(no.avaliar());
         
-        // Formula formula = new Formula(formulaString);
+        p.setValor(true);
         
-        // formula.setValorProposicao('p', false);
-        // formula.setValorProposicao('q', false);
-        // formula.setValorProposicao('r', false);
-        // formula.setValorProposicao('s', true);
+        System.out.println(no.avaliar());
         
-        // formula.show();
-        // formula.draw();
-        TelaPrincipal tela = new TelaPrincipal("Forlog");
+        Formula formula = new Formula(
+                String.format("(%c %c %c)", 'p', '\u2228', 'q'));
+        
+        formula.show();
         
     }
 
