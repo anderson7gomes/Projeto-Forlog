@@ -30,4 +30,5 @@ public class DrawTree extends JFrame {
 		this.setVisible(true);
 		
 	}
+	
 } // fim da classe DrawTree
