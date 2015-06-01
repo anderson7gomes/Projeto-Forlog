@@ -310,20 +310,24 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	}
 
     }
+    
     public void button_DesenharArvore_Pressed(){
     	// JOptionPane.showMessageDialog(null,"Foi Desenhar");
     	formula.draw();
     }
+    
     public void button_Abrir_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Abrir");
+    		
+    	
     }
+    
     public void button_Novo_Pressed(){
     	JOptionPane.showMessageDialog(null,"Foi Novo");
     }
+    
     public void button_Salvar_Pressed() {
     	
     	JFileChooser save = new JFileChooser();
-    	save.setDialogType(JFileChooser.SAVE_DIALOG);
     	
     	int retrival = save.showSaveDialog(this);
    
