@@ -330,13 +330,21 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	if (retrival == JFileChooser.APPROVE_OPTION) {
     	
     	    File file = chooser.getSelectedFile();
+    	    
+    	    if (file.getName().endsWith(".flg")) {
     	
-    		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        		try (BufferedReader br = new BufferedReader(
+        		        new FileReader(file))) {
 
-    	        inputFormula.setText(br.readLine());
-    	
-    		} catch (IOException e) {
-    		    e.printStackTrace();
+        	        inputFormula.setText(br.readLine());
+        	
+        		} catch (IOException e) {
+        		    e.printStackTrace();
+        		}
+    		
+    		} else {
+    		    JOptionPane.showMessageDialog(this, "O arquivo não é um .FLG", 
+    		            "Arquivo inválido", JOptionPane.WARNING_MESSAGE);
     		}
     	
     	}
@@ -356,7 +364,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		if (retrival == JFileChooser.APPROVE_OPTION) {
 		
 			try (BufferedWriter bw = new BufferedWriter(
-						new FileWriter(save.getSelectedFile() + ".flg"))) {
+						new FileWriter(save.getSelectedFile()))) {
 		
 				String formula = inputFormula.getText();
 						
