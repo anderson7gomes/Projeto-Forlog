@@ -6,3 +6,5 @@ Se somente se = "SSE"
 Negação Lógica = "NEGACAO"
 
 Ao cria um nó com o conectivo NEGACAO, favor inserir a proposição no filho esquerdo.
+
+A extensão dos arquivos a serem abertos e salvos é .FLG
