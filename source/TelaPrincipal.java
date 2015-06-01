@@ -16,6 +16,10 @@ import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import javax.swing.JScrollPane;
+import javax.swing.JFileChooser;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 	private JPanel panel;
@@ -317,9 +321,27 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	JOptionPane.showMessageDialog(null,"Foi Novo");
     }
     public void button_Salvar_Pressed() {
-    
-    	// Formula 
-
+    	
+    	JFileChooser save = new JFileChooser();
+    	save.setDialogType(JFileChooser.SAVE_DIALOG);
+    	
+    	int retrival = save.showSaveDialog(this);
+   
+		if (retrival == JFileChooser.APPROVE_OPTION) {
+		
+			try (BufferedWriter bw = new BufferedWriter(
+						new FileWriter(save.getSelectedFile() + ".flg"))) {
+		
+				String formula = inputFormula.getText();
+						
+				bw.write(formula);		
+		
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}	
+		
     }
     
     public void button_Sair_Pressed(){
