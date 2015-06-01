@@ -197,25 +197,31 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     			button_DesenharArvore_Pressed();
     		break;
     		case "E":	
-    			button_E_Pressed();
+    			button_E_Pressed(); 
+    			inputFormula.requestFocus();
     		break;
     		case "OU":	
     			button_OU_Pressed();
+    			inputFormula.requestFocus();
     		break;
     		case "NEGAÇÃO":	
     			button_NEGACAO_Pressed();
+    			inputFormula.requestFocus();
     		break;
     		case "SE_ENTAO":	
     			button_SE_ENTAO_Pressed();
+    			inputFormula.requestFocus();
     		break;
     		case "SSE":	
     			button_SSE_Pressed();
+    			inputFormula.requestFocus();
     		break;
     		case "Abrir":	
     			button_Abrir_Pressed();
     		break;
     		case "Novo":	
     			button_Novo_Pressed();
+    			inputFormula.requestFocus();
     		break;
     		case "Salvar":	
     			button_Salvar_Pressed();
@@ -337,6 +343,8 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
         		        new FileReader(file))) {
 
         	        inputFormula.setText(br.readLine());
+        	        
+        	        button_GerarTabela_Pressed();
         	
         		} catch (IOException e) {
         		    e.printStackTrace();
@@ -352,7 +360,11 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     }
     
     public void button_Novo_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Novo");
+    	
+    	inputFormula.setText("");
+    	
+    	tabelaVerdade.setModel(new DefaultTableModel());
+    	
     }
     
     public void button_Salvar_Pressed() {
@@ -363,8 +375,15 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
    
 		if (retrival == JFileChooser.APPROVE_OPTION) {
 		
+		    String fileName;
+	
+	        File file = save.getSelectedFile();
+	        fileName = file.getPath();
+	        
+	        fileName += (fileName.endsWith(".flg")) ? "" : ".flg";
+		
 			try (BufferedWriter bw = new BufferedWriter(
-						new FileWriter(save.getSelectedFile()))) {
+						new FileWriter(fileName))) {
 		
 				String formula = inputFormula.getText();
 						
