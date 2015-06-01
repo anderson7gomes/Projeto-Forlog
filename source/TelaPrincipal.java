@@ -329,12 +329,14 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	
     	if (retrival == JFileChooser.APPROVE_OPTION) {
     	
-    		try {
+    	    File file = chooser.getSelectedFile();
     	
-    			File file = chooser.getSelectedFile();
-    		
-    			BufferedReader br = new BufferedReader(new FileReader(file));
+    		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+    	        inputFormula.setText(br.readLine());
     	
+    		} catch (IOException e) {
+    		    e.printStackTrace();
     		}
     	
     	}
