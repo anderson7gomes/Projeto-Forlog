@@ -17,9 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import javax.swing.JScrollPane;
 import javax.swing.JFileChooser;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 	private JPanel panel;
@@ -318,6 +321,23 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     
     public void button_Abrir_Pressed(){
     		
+    	JFileChooser chooser = new JFileChooser();
+    		
+    	chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    	
+    	int retrival = chooser.showOpenDialog(this);
+    	
+    	if (retrival == JFileChooser.APPROVE_OPTION) {
+    	
+    		try {
+    	
+    			File file = chooser.getSelectedFile();
+    		
+    			BufferedReader br = new BufferedReader(new FileReader(file));
+    	
+    		}
+    	
+    	}
     	
     }
     
