@@ -405,11 +405,18 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	JOptionPane.showMessageDialog(null,"Anderson Gomes\nCaio Viktor\nJose Rodrigo\nJuan Jackson\nKarin Oliveira","Desenvolvedores",JOptionPane.INFORMATION_MESSAGE);
     }
     public void button_Ajuda_Pressed(){
-    	JOptionPane.showMessageDialog(null,"As formulas devem estar completamente parentesadas\nEX.:\n(p"+ '\u2227' +" q)\n("+'\u223c'+"p)\n((p " + '\u2227' +" q) " + '\u2228' + "(" + '\u223c' + "(r " + '\u2192' + "t)))\nA quantidade de Átomos deve estar no intervalo:[1,5]\nÁtomos aceitos: a-z","Ajuda",JOptionPane.PLAIN_MESSAGE);
+        String ajuda = "";
+        try{
+            BufferedReader leitor = new BufferedReader(new FileReader("../notas-importantes/ajuda.txt"));
+            while(leitor.ready()){
+                ajuda += leitor.readLine() + "\n";
+            }
+        }catch(Exception e){
+            ajuda = "Ocorreu um erro interno e infelizmente não podemos ajuda-lo";
+        }
+    	JOptionPane.showMessageDialog(null,ajuda,"Ajuda",JOptionPane.PLAIN_MESSAGE);
     }
     public void keyPressed(KeyEvent e) {     
- 		   // String texto = inputFormula.getText();
- 		   // JOptionPane.showMessageDialog(null,texto);
  		   itemSalvar.setEnabled(false);
     }  
     public void keyReleased(KeyEvent e){  

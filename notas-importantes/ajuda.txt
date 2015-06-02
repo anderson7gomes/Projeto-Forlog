@@ -1,0 +1,22 @@
+As formulas devem estar completamente parentesadas
+EX.:
+	(p)
+	(p  ∧ q)
+	( ∼ p)
+	((p ∧ q)  ∨ ( ∼ (r  → t)))
+
+A quantidade de Átomos deve estar no intervalo:
+[1,5]
+
+Átomos aceitos: 
+a-z
+
+Os atalhos no teclado para os conectivos são:
+	∧: 1
+	∨: 2
+	∼: 3 
+	→: 4
+	↔: 5
+
+O formato suportado para exportação e importação é:
+	.flg
