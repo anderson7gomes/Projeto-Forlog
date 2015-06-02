@@ -402,10 +402,10 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     	System.exit(0);
     }
     public void button_Desenvolvedores_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Dev");
+    	JOptionPane.showMessageDialog(null,"Anderson Gomes\nCaio Viktor\nJose Rodrigo\nJuan Jackson\nKarin Oliveira","Desenvolvedores",JOptionPane.INFORMATION_MESSAGE);
     }
     public void button_Ajuda_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Foi Ajuda");
+    	JOptionPane.showMessageDialog(null,"As formulas devem estar completamente parentesadas\nEX.:\n(p"+ '\u2227' +" q)\n("+'\u223c'+"p)\n((p " + '\u2227' +" q) " + '\u2228' + "(" + '\u223c' + "(r " + '\u2192' + "t)))\nA quantidade de Átomos deve estar no intervalo:[1,5]\nÁtomos aceitos: a-z","Ajuda",JOptionPane.PLAIN_MESSAGE);
     }
     public void keyPressed(KeyEvent e) {     
  		   // String texto = inputFormula.getText();
