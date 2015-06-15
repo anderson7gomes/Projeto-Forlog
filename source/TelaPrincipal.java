@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
+public class TelaPrincipal extends JFrame implements ActionListener, 
+		KeyListener {
+
 	private JPanel panel;
 	private JPanel panelContent;
 	private JPanel panelLogica;
@@ -53,22 +55,28 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 
     private Formula formula;
 
-    public TelaPrincipal(String title){
+    public TelaPrincipal(String title) {
+    
     	super(title);
+    	
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-    	setSize(700,700);
+    	setSize(700, 700);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
-		try{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); 
-		}catch(Exception e){
+		
+		try {
+		
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			 
+		} catch(Exception e) {
 			System.out.println(e);
 		}
 
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		setContentPane(panel);
+		
 		//Menu
 		menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -76,29 +84,27 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		
 		menuFile = new JMenu("Arquivo");
 		menuFile.setMnemonic(KeyEvent.VK_R);
+		
 		menuAbout = new JMenu("Sobre");
 		menuAbout.setMnemonic(KeyEvent.VK_O);
+
 		menuBar.add(menuFile);
 		menuBar.add(menuAbout);
 		
 		itemNovo = new JMenuItem("Novo");
-		// itemNovo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, 0));
 		itemNovo.setMnemonic(KeyEvent.VK_N);
 		itemNovo.addActionListener(this);
 		
 		itemAbrir = new JMenuItem("Abrir");
-		// itemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
 		itemAbrir.setMnemonic(KeyEvent.VK_A);
 		itemAbrir.addActionListener(this);
 		
 		itemSalvar = new JMenuItem("Salvar");
-		// itemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
 		itemSalvar.setMnemonic(KeyEvent.VK_S);
 		itemSalvar.setEnabled(false);
 		itemSalvar.addActionListener(this);
 		
 		itemSair = new JMenuItem("Sair");
-		// itemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, 0));
 		itemSair.setMnemonic(KeyEvent.VK_R);
 		itemSair.addActionListener(this);
 		
@@ -108,32 +114,31 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		menuFile.add(itemSair);
 
 		itemDesenvolvedores = new JMenuItem("Desenvolvedores");
-		// itemDesenvolvedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
 		itemDesenvolvedores.setMnemonic(KeyEvent.VK_D);
 		itemDesenvolvedores.addActionListener(this);
 		
 		itemAjuda = new JMenuItem("Ajuda");
-		// itemAjuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, 0));
 		itemAjuda.setMnemonic(KeyEvent.VK_J);
 		itemAjuda.addActionListener(this);
 
 		menuAbout.add(itemDesenvolvedores);
 		menuAbout.add(itemAjuda);
 
-		panel.add(menuBar,BorderLayout.NORTH);
+		panel.add(menuBar, BorderLayout.NORTH);
 		//FIM Menu
 
 		panelContent = new JPanel();
 		panelContent.setLayout(new BorderLayout());
 		panel.add(panelContent);
+		
 		//Input da Formula
 		panelLogica = new JPanel();
 		panelLogica.setLayout(new BorderLayout());
-		panelContent.add(panelLogica,BorderLayout.NORTH);
+		panelContent.add(panelLogica, BorderLayout.NORTH);
 		
 		panelLogica1 = new JPanel();
 		panelLogica1.setLayout(new FlowLayout(FlowLayout.CENTER));
-		panelLogica.add(panelLogica1,BorderLayout.NORTH);
+		panelLogica.add(panelLogica1, BorderLayout.NORTH);
 		
 		label = new JLabel("Formula:");
 		panelLogica1.add(label);
@@ -181,148 +186,217 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
 		panelTable = new JPanel();
 		panelContent.add(panelTable);
 		tabelaVerdade = new JTable();
-		//tabelaVerdade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scroll = new JScrollPane(tabelaVerdade);  
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
 		panelTable.add(scroll);
 		pack();
+
     }
-    public void actionPerformed(ActionEvent e){
-    	//Eventos
-    	switch(e.getActionCommand()){
-    		case "Gerar Tabela":	
+    
+    public void actionPerformed(ActionEvent e) {
+    
+    	switch (e.getActionCommand()) {
+    	
+    		case "Gerar Tabela":
+    			
     			button_GerarTabela_Pressed();
-    		break;
+    			break;
+    			
     		case "Desenhar Arvore":
+    		
     			button_DesenharArvore_Pressed();
-    		break;
-    		case "E":	
+    			break;
+    			
+    		case "E":
+    			
     			button_E_Pressed(); 
     			inputFormula.requestFocus();
-    		break;
-    		case "OU":	
+    			break;
+    			
+    		case "OU":
+    			
     			button_OU_Pressed();
     			inputFormula.requestFocus();
-    		break;
+    			break;
+
     		case "NEGAÇÃO":	
+    		
     			button_NEGACAO_Pressed();
     			inputFormula.requestFocus();
-    		break;
-    		case "SE_ENTAO":	
+    			break;
+    			
+    		case "SE_ENTAO":
+    			
     			button_SE_ENTAO_Pressed();
     			inputFormula.requestFocus();
-    		break;
-    		case "SSE":	
+    			break;
+  
+    		case "SSE":
+    			
     			button_SSE_Pressed();
     			inputFormula.requestFocus();
-    		break;
-    		case "Abrir":	
+    			break;
+    			
+    		case "Abrir":
+    			
     			button_Abrir_Pressed();
-    		break;
-    		case "Novo":	
+    			break;
+    			
+    		case "Novo":
+    			
     			button_Novo_Pressed();
     			inputFormula.requestFocus();
-    		break;
-    		case "Salvar":	
+    			break;
+    			
+    		case "Salvar":
+    			
     			button_Salvar_Pressed();
-    		break;
-    		case "Sair":	
+    			break;
+    			
+    		case "Sair":
+    			
     			button_Sair_Pressed();
-    		break;
-    		case "Desenvolvedores":	
+    			break;
+    			
+    		case "Desenvolvedores":
+    			
     			button_Desenvolvedores_Pressed();
-    		break;
-    		case "Ajuda":	
+    			break;
+    			
+    		case "Ajuda":
+    			
     			button_Ajuda_Pressed();
-    		break;
+    			break;
+
     	}
+
     }
-    public void setTable(){
-    	TableModel dataModel = new AbstractTableModel() {
-          public int getColumnCount() { 
-          	return formula.getQuantidadeAtomos() + 1; 
-          }
-          public int getRowCount() { 
-          	return (int)(Math.pow(2,formula.getQuantidadeAtomos()));
-          }
-          public Object getValueAt(int row, int col) { 
-            String binario = Integer.toBinaryString(row);
-            String complemento = "";
-            for(int i = 0 ; i < formula.getQuantidadeAtomos() - binario.length();i++)
-                complemento+="0";
-            binario = complemento+binario;
-            for(int i = 0 ; i < formula.getQuantidadeAtomos();i++){
-                if(binario.charAt(i) == '0'){
-                    formula.setValorIndex(i,false);        
+
+    public void setTable() {
+    
+   		TableModel dataModel = new AbstractTableModel() {
+			   		
+    		public int getColumnCount() { 
+          		return formula.getQuantidadeAtomos() + 1; 
+          	}
+          	
+          	public int getRowCount() { 
+          		return (int) (Math.pow(2, formula.getQuantidadeAtomos()));
+          	}
+          	
+          	public Object getValueAt(int row, int col) {
+          	 
+            	String binario = Integer.toBinaryString(row);
+            	String complemento = "";
+            	
+            	for (int i = 0; i < formula.getQuantidadeAtomos() - 
+            			binario.length(); i++) {
+                	complemento+="0";
                 }
-                else{
-                    formula.setValorIndex(i,true);
-                }
-            }
-          	if(col < formula.getQuantidadeAtomos())
-          		return formula.getValorProposicao(formula.getProposicao(col));
-          	return formula.getValor();
+                
+            	binario = complemento + binario;
+            	
+            	for (int i = 0; i < formula.getQuantidadeAtomos(); i++) {
+            	
+                	if (binario.charAt(i) == '0') {
+                    	formula.setValorIndex(i, false);        
+                	} else {
+                    	formula.setValorIndex(i, true);
+                	}
+                	
+            	}
+            	
+          		if (col < formula.getQuantidadeAtomos()) {
+          			return formula.getValorProposicao(formula.getProposicao(col));
+          		}
+          		
+          		return formula.getValor();
+
           }
-          public String getColumnName(int columnIndex){
-          	if(columnIndex < formula.getQuantidadeAtomos())
+          
+          public String getColumnName(int columnIndex) {
+          
+          	if (columnIndex < formula.getQuantidadeAtomos()) {
           		return String.valueOf(formula.getProposicao(columnIndex));
+          	}
+          		
           	return "Resultado";
+
           }
-      };
+          
+		};
+      
       tabelaVerdade.setModel(dataModel);
+      
       pack();
+      
     }
-    public void button_E_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi E");
+    
+    public void button_E_Pressed() {
+    
     	String texto = inputFormula.getText();
     	texto += " " + '\u2227' + " ";
     	inputFormula.setText(texto);
+
     }
+    
     public void button_OU_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi OU");
+
     	String texto = inputFormula.getText();
     	texto += " " + '\u2228' + " ";
     	inputFormula.setText(texto);
+
     }
+    
     public void button_NEGACAO_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi N");
+    
     	String texto = inputFormula.getText();
     	texto += " " + '\u223c' + " ";
     	inputFormula.setText(texto);
+
     }
+    
     public void button_SE_ENTAO_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi SE");
+
     	String texto = inputFormula.getText();
     	texto += " " + '\u2192' + " ";
     	inputFormula.setText(texto);
+
     }
+
     public void button_SSE_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi SSE");
+
     	String texto = inputFormula.getText();
     	texto += " " + '\u2194' + " ";
     	inputFormula.setText(texto);
+
     }
+
     public void button_GerarTabela_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi GE");
+
     	String texto = inputFormula.getText();
-    	try{
+
+    	try {
+    	
  	   		Formula formulaTeste = new Formula(texto);
     		botaoDesenharArvore.setEnabled(true);
     		itemSalvar.setEnabled(true);
     		formula = formulaTeste;
-    		//JOptionPane.showMessageDialog(null,"Formula Válida");
+   
     		setTable();
-    	}catch(IllegalArgumentException e){
+
+    	} catch (IllegalArgumentException e) {
     		JOptionPane.showMessageDialog(null,"A formula não é válida");
-    	}catch(Exception e){
+    	} catch (Exception e) {
     		System.out.println("Algum Erro");
     	}
 
     }
     
-    public void button_DesenharArvore_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi Desenhar");
+    public void button_DesenharArvore_Pressed() {
+    	
     	formula.draw();
+ 
     }
     
     public void button_Abrir_Pressed(){
@@ -398,38 +472,63 @@ public class TelaPrincipal extends JFrame implements ActionListener,KeyListener{
     }
     
     public void button_Sair_Pressed(){
-    	// JOptionPane.showMessageDialog(null,"Foi Sair");
+    	
     	System.exit(0);
+
     }
-    public void button_Desenvolvedores_Pressed(){
-    	JOptionPane.showMessageDialog(null,"Anderson Gomes\nCaio Viktor\nJose Rodrigo\nJuan Jackson\nKarin Oliveira","Desenvolvedores",JOptionPane.INFORMATION_MESSAGE);
+    
+    public void button_Desenvolvedores_Pressed() {
+    
+    	JOptionPane.showMessageDialog(null, "Anderson Gomes\nCaio Viktor\n" + 
+    			"Jose Rodrigo\nJuan Jackson\nKarin Oliveira", "Desenvolvedores",
+    			JOptionPane.INFORMATION_MESSAGE);
     }
-    public void button_Ajuda_Pressed(){
+    
+    public void button_Ajuda_Pressed() {
+    
         String ajuda = "";
-        try{
-            BufferedReader leitor = new BufferedReader(new FileReader("../notas-importantes/ajuda.txt"));
-            while(leitor.ready()){
+
+        try {
+        
+            BufferedReader leitor = new BufferedReader(
+            		new FileReader("../notas-importantes/ajuda.txt"));
+            		
+            while (leitor.ready()) {
                 ajuda += leitor.readLine() + "\n";
             }
-        }catch(Exception e){
-            ajuda = "Ocorreu um erro interno e infelizmente não podemos ajuda-lo";
+            
+        } catch (Exception e) {
+        
+            ajuda = "Ocorreu um erro interno e infelizmente " + 
+            		"não podemos ajuda-lo";
         }
+        
     	JOptionPane.showMessageDialog(null,ajuda,"Ajuda",JOptionPane.PLAIN_MESSAGE);
+
     }
+    
     public void keyPressed(KeyEvent e) {     
- 		   itemSalvar.setEnabled(false);
-    }  
-    public void keyReleased(KeyEvent e){  
-    	if(e.getKeyCode() >= KeyEvent.VK_1 && e.getKeyCode() <= KeyEvent.VK_5){
-	    	String texto = inputFormula.getText();
-	    	texto = texto.replace("1"," " + '\u2227' + " ");
-	    	texto = texto.replace("2"," " + '\u2228' + " ");
-	    	texto = texto.replace("3"," " + '\u223c' + " ");
-	    	texto = texto.replace("4"," " + '\u2192' + " ");
-	    	texto = texto.replace("5"," " + '\u2194' + " ");
-	    	inputFormula.setText(texto);
-    	}
-    }  
-    public void keyTyped(KeyEvent e){         
+		itemSalvar.setEnabled(false);
     }
+      
+    public void keyReleased(KeyEvent e) {
+      
+    	if (e.getKeyCode() >= KeyEvent.VK_1 && e.getKeyCode() <= KeyEvent.VK_5) {
+    	
+	    	String texto = inputFormula.getText();
+	    	
+	    	texto = texto.replace("1", " " + '\u2227' + " ");
+	    	texto = texto.replace("2", " " + '\u2228' + " ");
+	    	texto = texto.replace("3", " " + '\u223c' + " ");
+	    	texto = texto.replace("4", " " + '\u2192' + " ");
+	    	texto = texto.replace("5", " " + '\u2194' + " ");
+
+	    	inputFormula.setText(texto);
+ 
+    	}
+    	
+    }  
+    
+    public void keyTyped(KeyEvent e) {}
+    
 } // fim da classe TelaPrincipal
