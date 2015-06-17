@@ -193,7 +193,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,
 
     }
     
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {//HUB de eventos
     
     	switch (e.getActionCommand()) {
     	
@@ -272,41 +272,41 @@ public class TelaPrincipal extends JFrame implements ActionListener,
 
     }
 
-    public void setTable() {
+    public void setTable() {//Monta tabela
     
    		TableModel dataModel = new AbstractTableModel() {
 			   		
-    		public int getColumnCount() { 
+    		public int getColumnCount() { //Pega quantidade de Conluna na tabela
           		return formula.getQuantidadeAtomos() + 1; 
           	}
           	
-          	public int getRowCount() { 
+          	public int getRowCount() { //Pega quantidade de Linhas na tabela
           		return (int) (Math.pow(2, formula.getQuantidadeAtomos()));
           	}
           	
-          	public Object getValueAt(int row, int col) {
+          	public Object getValueAt(int row, int col) {//Pega valor na célula
           	 
-            	String binario = Integer.toBinaryString(row);
+            	String binario = Integer.toBinaryString(row);//Consegue forma binária da linha
             	String complemento = "";
             	
             	for (int i = 0; i < formula.getQuantidadeAtomos() - 
             			binario.length(); i++) {
-                	complemento+="0";
-                }
+                	complemento += "0";
+                }//preenche com 0 até possuir 5 bits
                 
             	binario = complemento + binario;
             	
-            	for (int i = 0; i < formula.getQuantidadeAtomos(); i++) {
+            	for (int i = 0; i < formula.getQuantidadeAtomos(); i++) {//Verifica valor binário da linha e o seta como valor do átomo
             	
                 	if (binario.charAt(i) == '0') {
-                    	formula.setValorIndex(i, false);        
+                    		formula.setValorIndex(i, false);        
                 	} else {
-                    	formula.setValorIndex(i, true);
+                    		formula.setValorIndex(i, true);
                 	}
                 	
             	}
             	
-          		if (col < formula.getQuantidadeAtomos()) {
+          		if (col < formula.getQuantidadeAtomos()) {//Coluna de resultado
           			return formula.getValorProposicao(formula.getProposicao(col));
           		}
           		
@@ -314,9 +314,9 @@ public class TelaPrincipal extends JFrame implements ActionListener,
 
           }
           
-          public String getColumnName(int columnIndex) {
+          public String getColumnName(int columnIndex) {//Pega nome da Coluna
           
-          	if (columnIndex < formula.getQuantidadeAtomos()) {
+          	if (columnIndex < formula.getQuantidadeAtomos()) {//Seta nome como o rótulo do átomo
           		return String.valueOf(formula.getProposicao(columnIndex));
           	}
           		
@@ -331,7 +331,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,
       pack();
       
     }
-    
+    //Métodos de Eventos
     public void button_E_Pressed() {
     
     	String texto = inputFormula.getText();
@@ -378,7 +378,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,
 
     	try {
     	
- 	   		Formula formulaTeste = new Formula(texto);
+ 	   	Formula formulaTeste = new Formula(texto);
     		botaoDesenharArvore.setEnabled(true);
     		itemSalvar.setEnabled(true);
     		formula = formulaTeste;
@@ -510,7 +510,7 @@ public class TelaPrincipal extends JFrame implements ActionListener,
     public void keyPressed(KeyEvent e) {     
 		itemSalvar.setEnabled(false);
     }
-      
+    //Atalhos do teclado
     public void keyReleased(KeyEvent e) {
       
     	if (e.getKeyCode() >= KeyEvent.VK_1 && e.getKeyCode() <= KeyEvent.VK_5) {
