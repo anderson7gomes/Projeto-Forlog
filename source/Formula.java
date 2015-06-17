@@ -29,12 +29,12 @@ public class Formula {
 	
 		String formula = formulaComParenteses;
 		
-		if (formulaComParenteses.charAt(0) == '(') {
+		if (formulaComParenteses.charAt(0) == '(') { //Remove parenteses inicial e final da formula.
 			formula = formulaComParenteses.substring(1, 
 			        formulaComParenteses.length() - 1);
 		}
 			
-		if(formula.length() == 1) {
+		if(formula.length() == 1) { //Formula é um átomo
 		
 			Atomo a1 = recuperarAtomo(formula.charAt(0));
 			No<Atomo> atomo = new No<>(a1);
@@ -45,7 +45,7 @@ public class Formula {
 		int parenteses = 0, atual = -1;
 		No raiz = null;
 		
-		do {
+		do {//Delimita 1º operando do operador principal
 		
 			atual++;
 			
@@ -59,21 +59,21 @@ public class Formula {
 
 		} while (parenteses > 0);
 		
-		switch (formula.charAt(atual)) {
+		switch (formula.charAt(atual)) { //Verifica operador principal
 		
 			case '\u223c': //NEGACAO
 			
 			    ConectivoUnario c2 = new ConectivoUnario(TipoConectivo.NEGACAO);
 				raiz = new No<ConectivoUnario>(c2, 
-				        criarArvore( formula.substring(atual + 1) ) );
+				        criarArvore( formula.substring(atual + 1) ) );//Cria arvore do operando e a anexa a sua árvore
 			    break;
 			    
 			default: //Outros casos (Binário)
 			
-				atual++;
+				atual++;//Vai para o operador Binário
 				
 				if (atual >= formula.length()) {
-					return criarArvore(formula.substring(0, formula.length()));
+					return criarArvore(formula.substring(0, formula.length()));//Caso seja formula com vários parenteses aninhados
 				}
 					
 				ConectivoBinario conectivo = null;
@@ -106,9 +106,9 @@ public class Formula {
 					    break;
 				}
 				
-				No esquerda = criarArvore(formula.substring(0, atual));
-				No direita = criarArvore(formula.substring(atual + 1));
-				raiz = new No<ConectivoBinario>(conectivo, esquerda, direita);
+				No esquerda = criarArvore(formula.substring(0, atual)); // Criar arvore do operando à esquerda
+				No direita = criarArvore(formula.substring(atual + 1)); // Criar arvore do operando à esquerda
+				raiz = new No<ConectivoBinario>(conectivo, esquerda, direita); //Cria arvore atual com o Conectivo como nó e operandos à esquerda e direita como filhos.
 			    break;
 		}
 		
@@ -133,7 +133,7 @@ public class Formula {
 		if (formula.charAt(0) != '(' || 
 		        formula.charAt(formula.length()-1) != ')') {
 			return false;
-		}	
+		}	//Verifica se ela possui os parents no começo e fim
 		
 		int abreParentese = 0, fechaParentese = 0;
 		Set<Character> proposicoes = new HashSet<>();
@@ -152,7 +152,7 @@ public class Formula {
 			
 				abreParentese++;
 				
-				if (formula.charAt(i + 1) == ')') {
+				if (formula.charAt(i + 1) == ')') {//Parenteses vazio tipo:()
 					return false;
 				}	
 
@@ -162,15 +162,15 @@ public class Formula {
 				fechaParentese++;
 			}	
 			
-			if (fechaParentese > abreParentese) {
+			if (fechaParentese > abreParentese) {//Se fechou algum parêntese a mais
 				return false;
 			}	
 			
 			if (Atomo.isAtomo(atual)) { //É proposição
 			
-				proposicoes.add(atual); 
+				proposicoes.add(atual); // Adiciona no HashSet que faz o controle de proposições
 				
-				if (proposicoes.size() > 5) {
+				if (proposicoes.size() > 5) { 
 					return false;
 				}
 					
@@ -180,7 +180,7 @@ public class Formula {
 					return false;
 				}
 					
-				if (proximo == '(') {
+				if (proximo == '(') {// Proposição sem operando ou termino
 					return false;
 				}	
 				
@@ -217,18 +217,18 @@ public class Formula {
 			
 		}
 
-		if (abreParentese != fechaParentese) {
+		if (abreParentese != fechaParentese) { //Verifica se há a mesma quantidade de parenteses
 			return false;
 		}
 			
 		qtdAtomos = proposicoes.size();
-		atomos = new Atomo[qtdAtomos];
+		atomos = new Atomo[qtdAtomos];//Cria vetor com átomos usados na formula
 
 		int i = 0;
 		
 		for (Character rotulo : proposicoes) {
 		
-			atomos[i] = new Atomo(rotulo);
+			atomos[i] = new Atomo(rotulo);// Guarda átomos na formula
 			i++;
 
 		}
