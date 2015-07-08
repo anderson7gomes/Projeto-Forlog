@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * Classe que processa uma String de formula, valida e constroi 
+ * uma arvore sintatica utilizando a estrutura de dados No
+ * @see No
+ */
+
 public class Formula {
 
 	private String formulaRaw;
@@ -8,6 +14,12 @@ public class Formula {
 	private int qtdAtomos;
 	private Atomo atomos[];
 	private String formulaPassada;
+	
+	/**
+	 * Construtor que recebe uma String representando a formula logica, valida 
+	 * e cria um arvore sintatica utilizando a estrutura de dados No
+	 * @param formulaRaw String da formula
+	 */
 
 	public Formula(String formulaRaw) {
 	
@@ -236,14 +248,31 @@ public class Formula {
 		return true;
 
 	}
+	
+	/**
+	 * Retorna o valor final da avaliacao da arvore sintatica 
+	 * construida a partir da formula passada para o construtor
+	 * @return valor booleano representando o resultado da expressao
+	 */
 
 	public boolean getValor() {
 	    return valor;
 	}
 	
+	/**
+	 * Retorna a quantidade de Atomos presentes na formula
+	 * @return int representando a quantidade de atomos presentes na formula
+	 */
+	
 	public int getQuantidadeAtomos() {
 		return qtdAtomos;
 	}
+	
+	/**
+	 * Retorna o rotulo de um atomo presente na formula
+	 * @param i indice do atomo na formula
+	 * @return caractere do rotulo do atomo na formula
+	 */
 
 	public char getProposicao(int i) {
 	
@@ -253,6 +282,13 @@ public class Formula {
 		return ' ';
 
 	}
+	
+	/**
+	 * Aceita um caractere representando o rotulo de um atomo e retorna 
+	 * o valor logico do atomo representado por aquele rotulo
+	 * @param rotulo caractere do atomo a ser retornado o valor logico
+	 * @return valor logico do atomo representado pelo rotulo
+	 */
 	
 	public boolean getValorProposicao(char rotulo) {
 	
@@ -267,6 +303,13 @@ public class Formula {
 		throw new IllegalArgumentException("Átomo não existente");
 
 	}
+
+    /**
+     * Modifica o valor de um atomo procurando pelo caractere do rotulo
+     * @param rotulo caractere representando o rotulo 
+     *        do atomo a ter o valor modificado
+     * @param valor novo valor logico do atomo
+     */
 
 	public void setValorProposicao(char rotulo, boolean valor) {
 	
@@ -291,6 +334,12 @@ public class Formula {
 
 	}
 	
+	/**
+     * Modifica o valor de um atomo procurando pelo indice do atomo
+     * @param i indice representando o atomo na formula a ter o valor modificado
+     * @param valor novo valor logico do atomo
+     */
+	
 	public void setValorIndex(int i, boolean valor) {
 	
 		if (i >= 0 && i < qtdAtomos) {
@@ -304,12 +353,21 @@ public class Formula {
 
 	}
 	
+	/**
+	 * Metodo que avalia a arvore sintatica da formula e retorna seu valor
+	 * @return valor booleano da formula
+	 */
+	
 	public boolean avaliarArvore() {
 	
 		valor = arvore.avaliar();
 		return valor;
 
 	}
+
+    /**
+     * Metodo que imprime no console as informacoes da formula
+     */
 
 	public void show() {
 	
@@ -325,9 +383,19 @@ public class Formula {
 
 	}
 	
+	/**
+	 * Retorna a String que representa a formula logica
+	 * @return representacao String da formula
+	 */
+	
 	public String getFormula() {
 		return formulaRaw;
 	}
+	
+	/**
+	 * Metodo utilizado pela classe DrawTree para 
+	 * desenhar a arvore sintatica da formula
+	 */
 	
 	public void draw() {
 		DrawTree desenho = new DrawTree(this.getFormula(),this.arvore,30);
